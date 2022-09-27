@@ -13,7 +13,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-idr-flowspec-redirect-ip-02"
+  docName="draft-ietf-idr-flowspec-redirect-ip-03"
   ipr="trust200902"
   obsoletes=""
   updates=""
@@ -22,9 +22,9 @@
   version="3">
 
   <front>
-    <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect to IP Action</title> <!-- https://authors.ietf.org/en/rfcxml-vocabulary#title-4 -->
+    <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect to IP Action</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-02"/> <!-- https://authors.ietf.org/en/rfcxml-vocabulary#seriesinfo -->
+    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-03"/>
    
     <author fullname="James Uttaro" initials="J." surname="Uttaro">
       <organization>AT&amp;T</organization>
@@ -44,11 +44,11 @@
       <organization>Juniper Networks</organization>
       <address>
         <postal>
-          <street>1194 N. Mathilda Ave.</street>
+          <street>1133 Innovation Way</street>
           <city>Sunnyvale</city>
           <region>CA</region>
           <code>94089</code>
-          <country>USA</country>
+          <country>US</country>
         </postal>        
         <email>jhaas@juniper.net</email>  
       </address>
@@ -127,7 +127,7 @@
       </address>
     </author>
    
-    <date year="2015" month="2" day="2"/> <!-- https://authors.ietf.org/en/rfcxml-vocabulary#date -->
+    <date year="2022"/>
 
     <area>Routing</area>
     <workgroup>IDR Working Group</workgroup>
@@ -156,7 +156,6 @@
   <middle>
     
     <section>
-    <!-- The default attributes for <section> are numbered="true" and toc="default" -->
       <name>Introduction</name>
       <t>Flow-spec is an extension to BGP that allows for the dissemination of
       traffic flow specification rules. This has many possible applications but
@@ -282,7 +281,7 @@
       <section>
         <name>Validation Procedures</name>
         <t>The validation check described in <xref target="RFC5575"/> and
-        revised in <xref target="I-D.ietf-idr-bgp-flowspec-oid"/> SHOULD be
+        revised in <xref target="RFC9117"/> SHOULD be
         applied by default to received flow-spec routes with a 'redirect to IP'
         extended community, as it is to all types of flow-spec routes. This
         means that a flow-spec route with a destination prefix subcomponent
@@ -335,7 +334,6 @@
         <name>Normative References</name>
         
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174.xml"/>
-        <!-- The recommended and simplest way to include a well known reference -->
         
       </references>
  
@@ -343,7 +341,6 @@
         <name>Informative References</name>
        
         <reference anchor="RFC2119" target="https://www.rfc-editor.org/info/rfc2119">
-        <!-- Manually added reference -->
           <front>
             <title>Key words for use in RFCs to Indicate Requirement Levels</title>
             <author initials="S." surname="Bradner" fullname="S. Bradner">
@@ -361,8 +358,8 @@
         </reference>
 
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5575.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9117.xml"/>
         <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-flow-spec-v6-00.xml"/>
-        <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-bgp-flowspec-oid-00.xml"/>
        
       </references>
     </references>
@@ -375,18 +372,15 @@
     
     <section anchor="Contributors" numbered="false">
       <name>Contributors</name>
-      <contact fullname="David Smith" initials="D" surname="Smith"><!-- https://authors.ietf.org/en/rfcxml-vocabulary#contact-->
-        <!-- including contact information for contributors is optional -->
+      <contact fullname="David Smith" initials="D" surname="Smith">
         <organization>Cisco</organization>
         <address>
           <postal>
-            <!-- Reorder these if your country does things differently -->
             <street>111 Wood Avenue South</street>
             <city>Iselin</city>
             <region>NJ</region>
             <code>08830</code>
             <country>USA</country>
-            <!-- Can use two letter country code -->
           </postal>        
           <email>djsmith@cisco.com</email>
         </address>
