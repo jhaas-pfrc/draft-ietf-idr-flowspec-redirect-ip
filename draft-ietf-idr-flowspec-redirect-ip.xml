@@ -195,13 +195,21 @@
       <t>This document defines two new BGP extended communities. The extended
       communities have a type indicating they are transitive and IPv4-
       address-specific or IPv6-address-specific, depending on whether the
-      redirection target address is IPv4 or IPv6. The sub-type value [to be
-      assigned by IANA] indicates that the global administrator and local
-      administrator fields encode a flow-spec 'redirect to IP' action. In the
-      new extended communities the 4-byte or 16-byte global administrator field
-      encodes the IPv4 or IPv6 address that is the redirection target address
-      and the 2-byte local administrator field is formatted as shown in Figure
-      1.</t>
+      redirection target address is IPv4 or IPv6.</t>
+
+      <t>For the IPv4 address-specific extended community, the IANA-assigned
+      sub-type value 0x0c indicates that the global administrator and local
+      administrator fields encode a flow-spec 'redirect to IPv4' action. In the
+      encoding of this action, the 4-byte global administrator field encodes
+      the IPv4 address that is the redirection target address and the 2-byte
+      local administrator field is formatted as shown in Figure 1.</t>
+
+      <t>For the IPv6 address-specific extended community the IANA-assigned
+      type 0x000c indicates that the global administrator and local
+      administrator fields encode a flow-spec ‘redirect to IPv6’ action. In
+      this encoding, the 16-byte global administrator field contains the IPv6
+      address that is the redirection target address and the 2-byte local
+      administrator field is again formatted as shown in Figure 1.</t>
 
       <artwork type="ascii-art" align="center">
         <![CDATA[
@@ -229,16 +237,19 @@
       the NLRI field and redirects them (C=0) or copies them (C=1) towards the
       IPv4 or IPv6 address in the extended community's global administrator
       field (the 'target address').  The BGP speaker is expected to do a
-      longest-prefix-match lookup of the 'target address' in its forwarding
-      information base (FIB) and forward the redirected/copied packets based on
-      the resulting route (the 'target route'). If the 'target route' has
-      multiple ECMP next- hops the redirected/copied packets SHOULD be
-      load-shared across these next-hops according to the router's ECMP
-      configuration. If the 'target route' has one or more tunnel next-hops then
-      the appropriate encapsulations SHOULD be added to the redirected/copied
-      packets. If the 'target address' is invalid or unreachable then the
-      extended community SHOULD be ignored.</t>
+      longest-prefix-match lookup of the 'target address' in the database it
+      uses to resolve next-hop addresses and then forward the redirected/copied
+      packets based on the resulting route (the 'target route'). If the 'target
+      route' has multiple ECMP next- hops the redirected/copied packets SHOULD
+      be load-shared across these next-hops according to the router's ECMP
+      configuration. If the 'target route' has one or more tunnel next-hops
+      then the appropriate encapsulations SHOULD be added to the
+      redirected/copied packets. If the 'target address' is invalid or
+      unreachable then the extended community SHOULD be ignored.</t>
 
+      <!-- XXX Adam notes the following section isn't supported in Nokia's
+      implementation and should be audited vs. actual support across the
+      vendors. -->
       <t>If a BGP speaker receives a flow-spec route with multiple 'redirect to
       IP' extended communities and this route represents the one and only best
       path, it SHOULD load-share the redirected/copied packets across all the
@@ -248,6 +259,9 @@
       redirecting/copying a packet towards multiple 'target addresses' it SHOULD
       deterministically select one 'target address' and ignore the others.</t>
 
+      <!-- XXX Adam notes the following section isn't supported in Nokia's
+      implementation and should be audited vs. actual support across the
+      vendors. -->
       <t>If a BGP speaker receives multiple flow-spec routes for the same
       flow-spec NLRI and all of them are considered best and usable paths
       according to the BGP speaker's multipath configuration and each one
@@ -258,6 +272,9 @@
       have multiple peers - i.e. Add-Paths could be used for the flow-spec
       address family.</t>
 
+      <!-- XXX Adam notes the following section isn't supported in Nokia's
+      implementation and should be audited vs. actual support across the
+      vendors. -->
       <t>If a BGP speaker receives a flow-spec route with one or more 'redirect
       to IP' extended communities and one or more 'redirect to VRF' extended
       communities, and this route represents the one and only best path, the
@@ -285,20 +302,55 @@
         <t>The validation check described in <xref target="RFC5575"/> and
         revised in <xref target="RFC9117"/> SHOULD be
         applied by default to received flow-spec routes with a 'redirect to IP'
-        extended community, as it is to all types of flow-spec routes. This
-        means that a flow-spec route with a destination prefix subcomponent
-        SHOULD NOT be accepted from an EBGP peer unless that peer also
-        advertised the best path for the matching unicast route.</t>
+        extended community, as it is to all types of flow-spec routes. 
+        When this check is applied a flow-spec route with a destination prefix
+        subcomponent that originated outside the local AS is considered valid
+        only if the neighbor AS implied in the AS_PATH attribute is the
+        neighbor AS of the unicast IP route that is the best match of the
+        destination prefix and it is also the neighbor AS of all unicast IP
+        routes that are longer matches of the destination prefix.</t>
 
         <t>BGP speakers that support the extended communities defined in this
-        draft MUST also, by default, enforce the following check when receiving
-        a flow-spec route from an EBGP peer: if the received flow- spec route
-        has a 'redirect to IP' extended community with a 'target address' X (in
-        the global administrator field) and the best matching route to X is not
-        a BGP route with origin AS matching the peer AS then the extended
-        community should be discarded and not propagated along with the
-        flow-spec route to other peers. It MUST be possible to disable this
-        additional validation check on a per-EBGP session basis.</t>
+        draft MUST also, by default, apply additional validation rules when receiving
+        a flow-spec with these extended communities.  More specifically, the
+        router must consider a ‘redirect-to-IPv4’ or ‘redirect-to-IPv6’
+        extended community to be invalid if the origin AS of the flow-spec
+        route does not match the origin AS of the best-match unicast route for
+        the ‘target-address’. For example:</t>
+
+        <ul>
+          <li> If the flow-spec route has a non-empty AS_PATH indicating origin
+          AS = X and the resolving route of the ‘target-address’ is a BGP route
+          with a non-empty AS_PATH indicating origin AS = X then the extended
+          community is considered ‘valid’.</li>
+          <li>If the flow-spec route has a null/empty AS_PATH or an AS_PATH
+          with only local confederation elements and the resolving route of the
+          ‘target-address’ is a BGP route with a null/empty AS_PATH or an
+          AS_PATH with only local confederation elements then the extended
+          community is considered ‘valid’.</li>
+          <li>If the flow-spec route has a null/empty AS_PATH or an AS_PATH
+          with only local confederation elements and the resolving route of the
+          ‘target-address’ is a non-BGP route then the extended community is
+          considered ‘valid’.</li>
+          <li>If the flow-spec route has a null/empty AS_PATH or an AS_PATH
+          with only local confederation elements and the resolving route of the
+          ‘target-address’ is a BGP route that originated outside the local AS
+          or confederation then the extended community is considered
+          ‘invalid’.</li>
+          <li>If the flow-spec route has a non-empty AS_PATH indicating origin
+          AS = X and the resolving route of the ‘target-address’ is a BGP route
+          with a null/empty AS_PATH or an AS_PATH with only local confederation
+          elements or it is a non-BGP route then the extended community is
+          considered ‘invalid’.</li>
+        </ul>
+
+        <t>If any of the above checks determine that a ‘redirect-to-IP’
+        extended community is invalid, the extended community should be
+        discarded and not propagated along with the flow-spec route to other
+        peers.</t>
+
+        <t>It MUST be possible to disable this additional validation check on a
+        per-EBGP session basis.</t>
       </section>
     </section>
 
