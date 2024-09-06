@@ -115,19 +115,12 @@
       </address>
     </author>
 
-<!-- XXX Matt Texier is no longer with Arbor/Netscout.  Need to locate an address for him.
     <author fullname="Matthieu Texier" initials="M." surname="Texier">
-      <organization>Arbor Networks</organization>
+      <organization>Pragma Security</organization>
       <address>
-        <postal>
-          <street>38 Rue De Berri</street>
-          <city>76008 Paris</city>
-          <country>France</country>
-        </postal>        
-        <email>mtexier@arbor.net</email>  
+        <email>matthieu@pragma-security.com</email>
       </address>
     </author>
--->
    
     <date year="2024"/>
 
