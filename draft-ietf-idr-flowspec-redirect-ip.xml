@@ -129,7 +129,7 @@
     </author>
 -->
    
-    <date year="2022"/>
+    <date year="2024"/>
 
     <area>Routing</area>
     <workgroup>IDR Working Group</workgroup>
@@ -387,7 +387,7 @@
       Type value is 0x000c.  The Name shall be "Flow-spec Redirect-to-IPv6".
       The Reference shall be this document.</t>
 
-      <t>IANA had previously allocated an exteded community from the "BGP
+      <t>IANA had previously allocated an extended community from the "BGP
       Transitive Extended Community Types" registry with Type Value 0x08 for
       "Flow spec redirect/mirror to IP next-hop".  IANA is requested to
       deprecate this registration.</t>
