@@ -224,76 +224,7 @@
       <t>All bits other than the "C" bit in the local administrator field MUST
       be set to 0 by the originating BGP speaker and ignored by receiving BGP
       speakers.</t>
-
-      <t>When a BGP speaker receives a flow-spec route with a "redirect-to-IP"
-      extended community and this route represents the one and only best path,
-      it installs a traffic filtering rule that matches the packets described by
-      the NLRI field and redirects them (C=0) or copies them (C=1) towards the
-      IPv4 or IPv6 address in the extended community's Global Administrator
-      field (the "target address").  The BGP speaker is expected to do a
-      longest-prefix-match lookup of the "target address" in the database it
-      uses to resolve next-hop addresses and then forward the redirected/copied
-      packets based on the resulting route (the "target route"). If the "target
-      route" has multiple ECMP next-hops, the redirected/copied packets SHOULD
-      be load-shared across these next-hops according to the router's ECMP
-      configuration. If the "target route" has one or more tunnel next-hops
-      then the appropriate encapsulations SHOULD be added to the
-      redirected/copied packets. If the "target address" is invalid or
-      unreachable then the extended community SHOULD be ignored.</t>
-
-      <!-- XXX Adam notes the following section isn't supported in Nokia's
-      implementation and should be audited vs. actual support across the
-      vendors. -->
-      <t>If a BGP speaker receives a flow-spec route with multiple
-      "redirect-to-IP" extended communities and this route represents the one
-      and only best path, it SHOULD load-share the redirected/copied packets
-      across all the "target addresses" according to its ECMP configuration. If
-      the BGP speaker is not capable of redirecting and copying the same packet
-      it SHOULD ignore the extended communities with C=0. If the BGP speaker is
-      not capable of redirecting/copying a packet towards multiple "target
-      addresses" it SHOULD deterministically select one "target address" and
-      ignore the others.</t>
-
-      <!-- XXX Adam notes the following section isn't supported in Nokia's
-      implementation and should be audited vs. actual support across the
-      vendors. -->
-      <t>If a BGP speaker receives multiple flow-spec routes for the same
-      flow-spec NLRI and all of them are considered best and usable paths
-      according to the BGP speaker's multipath configuration and each one
-      carries one or more "redirect-to-IP" extended communities, the BGP speaker
-      SHOULD load-share the redirected/copied packets across all the "target
-      addresses", with the same fallback rules as discussed in the previous
-      paragraph. Note that this situation does not require the BGP speaker to
-      have multiple peers; i.e., <xref target="RFC7911">BGP Add-Paths</xref>
-      could be used for the flow-spec address family.</t>
-
-      <!-- XXX Adam notes the following section isn't supported in Nokia's
-      implementation and should be audited vs. actual support across the
-      vendors. -->
-      <t>If a BGP speaker receives a flow-spec route with one or more "redirect
-      to IP" extended communities and one or more "redirect-to-VRF" extended
-      communities, and this route represents the one and only best path, the
-      "redirect-to-IP" actions described above should be applied in the context
-      of the "target VRF" matching the "redirect-to-VRF" extended community -
-      i.e. the "target addresses" should be looked up in the FIB of the "target
-      VRF". If there are multiple "redirect-to-VRF" extended communities in the
-      route, the "target VRF" SHOULD be the one that matches the
-      "redirect-to-VRF" extended community with the highest numerical value. If
-      the BGP speaker is not capable of "redirect-to-VRF" followed by 
-      "redirect-to-IP" then it SHOULD give preference to performing the
-      "redirect-to-VRF" action and doing only longest-prefix-match forwarding
-      in the "target VRF".</t>
-
-      <t>If a BGP speaker receives multiple flow-spec routes for the same
-      flow-spec NLRI, and all of them are considered best and usable paths
-      according to the BGP speaker's multipath configuration, and they carry a
-      combination of "redirect-to-IP" and "redirect-to-VRF" extended
-      communities, the BGP speaker SHOULD apply the "redirect-to-IP" actions in
-      the context of the "target VRF" as described above.  Note that this
-      situation does not require the BGP speaker to have multiple peers - i.e.
-      <xref target="RFC7911">BGP Add-Paths</xref> could be used for the
-      flow-spec address family.</t>
-
+      
       <section anchor="validation">
         <name>Validation Procedures</name>
         <t>The validation check described in <xref target="RFC5575"/> and
@@ -353,6 +284,83 @@
 
         <t>It MUST be possible to disable this additional validation check on a
         per-EBGP session basis.</t>
+      </section>
+      <section>
+	<name>Redirecting Matching Flowspec Traffic</name>
+
+	<t>Traffic that is to be redirected/copied for a "redirect-to-IP"
+	extended community SHOULD only be redirected if the community type
+	matches the traffic type.</t>
+
+	<t>When a BGP speaker receives a flow-spec route with a "redirect-to-IP"
+	extended community and this route represents the one and only best path,
+	it installs a traffic filtering rule that matches the packets described by
+	the NLRI field and redirects them (C=0) or copies them (C=1) towards the
+	IPv4 or IPv6 address in the extended community's Global Administrator
+	field (the "target address").  The BGP speaker is expected to do a
+	longest-prefix-match lookup of the "target address" in the database it
+	uses to resolve next-hop addresses and then forward the redirected/copied
+	packets based on the resulting route (the "target route"). If the "target
+	route" has multiple ECMP next-hops, the redirected/copied packets SHOULD
+	be load-shared across these next-hops according to the router's ECMP
+	configuration. If the "target route" has one or more tunnel next-hops
+	then the appropriate encapsulations SHOULD be added to the
+	redirected/copied packets. If the "target address" is invalid or
+	unreachable then the extended community SHOULD be ignored.</t>
+
+	<!-- XXX Adam notes the following section isn't supported in Nokia's
+	implementation and should be audited vs. actual support across the
+	vendors. -->
+	<t>If a BGP speaker receives a flow-spec route with multiple
+	"redirect-to-IP" extended communities and this route represents the one
+	and only best path, it SHOULD load-share the redirected/copied packets
+	across all the "target addresses" according to its ECMP configuration. If
+	the BGP speaker is not capable of redirecting and copying the same packet
+	it SHOULD ignore the extended communities with C=0. If the BGP speaker is
+	not capable of redirecting/copying a packet towards multiple "target
+	addresses" it SHOULD deterministically select one "target address" and
+	ignore the others.</t>
+
+	<!-- XXX Adam notes the following section isn't supported in Nokia's
+	implementation and should be audited vs. actual support across the
+	vendors. -->
+	<t>If a BGP speaker receives multiple flow-spec routes for the same
+	flow-spec NLRI and all of them are considered best and usable paths
+	according to the BGP speaker's multipath configuration and each one
+	carries one or more "redirect-to-IP" extended communities, the BGP speaker
+	SHOULD load-share the redirected/copied packets across all the "target
+	addresses", with the same fallback rules as discussed in the previous
+	paragraph. Note that this situation does not require the BGP speaker to
+	have multiple peers; i.e., <xref target="RFC7911">BGP Add-Paths</xref>
+	could be used for the flow-spec address family.</t>
+
+	<!-- XXX Adam notes the following section isn't supported in Nokia's
+	implementation and should be audited vs. actual support across the
+	vendors. -->
+	<t>If a BGP speaker receives a flow-spec route with one or more "redirect
+	to IP" extended communities and one or more "redirect-to-VRF" extended
+	communities, and this route represents the one and only best path, the
+	"redirect-to-IP" actions described above should be applied in the context
+	of the "target VRF" matching the "redirect-to-VRF" extended community -
+	i.e. the "target addresses" should be looked up in the FIB of the "target
+	VRF". If there are multiple "redirect-to-VRF" extended communities in the
+	route, the "target VRF" SHOULD be the one that matches the
+	"redirect-to-VRF" extended community with the highest numerical value. If
+	the BGP speaker is not capable of "redirect-to-VRF" followed by 
+	"redirect-to-IP" then it SHOULD give preference to performing the
+	"redirect-to-VRF" action and doing only longest-prefix-match forwarding
+	in the "target VRF".</t>
+
+	<t>If a BGP speaker receives multiple flow-spec routes for the same
+	flow-spec NLRI, and all of them are considered best and usable paths
+	according to the BGP speaker's multipath configuration, and they carry a
+	combination of "redirect-to-IP" and "redirect-to-VRF" extended
+	communities, the BGP speaker SHOULD apply the "redirect-to-IP" actions in
+	the context of the "target VRF" as described above.  Note that this
+	situation does not require the BGP speaker to have multiple peers - i.e.
+	<xref target="RFC7911">BGP Add-Paths</xref> could be used for the
+	flow-spec address family.</t>
+
       </section>
     </section>
 
