@@ -239,7 +239,6 @@
         routes that are longer matches of the destination prefix.</t>
 
         <!-- XXX JMH - do implementations enforce this restriction on the redirect? -->
-        <!-- XXX JMH - the question of origin AS validation is similar to the RPKI one -->
         <t>BGP speakers that support the extended communities defined in this
         draft MUST also, by default, apply additional validation rules when receiving
         a flow-spec with these extended communities.  More specifically, the
@@ -248,8 +247,12 @@
         route does not match the origin AS of the best-match unicast route for
         the "target-address". For example:</t>
 
-        <ul>
-          <li> If the flow-spec route has a non-empty AS_PATH indicating origin
+	<ul>
+	  <li>If the flow-spec route has a non-empty AS_PATH and any AS_PATH
+	  path segment is of the type AS_SET or AS_CONFED_SET, then the
+	  extended community is considered "invalid".</li>
+
+          <li>If the flow-spec route has a non-empty AS_PATH indicating origin
           AS = X, and the resolving route of the "target-address" is a BGP route
           with a non-empty AS_PATH indicating origin AS = X, then the extended
           community is considered "valid".</li>
