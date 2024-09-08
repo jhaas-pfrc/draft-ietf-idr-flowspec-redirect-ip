@@ -27,16 +27,9 @@
     <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-03"/>
    
     <author fullname="James Uttaro" initials="J." surname="Uttaro">
-      <organization>AT&amp;T</organization>
+      <organization>Individual Contributor</organization>
       <address>
-        <postal>
-          <street>200 S. Laurel Avenue</street>
-          <city>Middletown</city>
-          <region>NJ</region>
-          <code>07748</code>
-          <country>USA</country>
-        </postal>        
-        <email>ju1738@att.com</email>  
+	<email>juttaro@ieee.org</email>  
       </address>
     </author>
 
