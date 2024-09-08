@@ -274,13 +274,9 @@
           considered "invalid".</li>
         </ul>
 
-        <!-- XXX JMH - discarding has the issue that we're setting up trigger
-        conditions that may change over the lifetime of the validating routes.
-        This is almost certainly wrong. -->
         <t>If any of the above checks determine that a "redirect-to-IP"
-        extended community is invalid, the extended community should be
-        discarded and not propagated along with the flow-spec route to other
-        peers.</t>
+        extended community is invalid, the extended community SHOULD be
+        ignored.</t>
 
         <t>It MUST be possible to disable this additional validation check on a
         per-EBGP session basis.</t>
