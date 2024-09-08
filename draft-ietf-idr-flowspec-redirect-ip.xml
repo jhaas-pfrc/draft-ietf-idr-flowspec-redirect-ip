@@ -388,10 +388,10 @@
       Type value is 0x000c.  The Name shall be "Flow-spec Redirect-to-IPv6".
       The Reference shall be this document.</t>
 
-      <t>IANA had previously allocated an extended community from the "BGP
-      Transitive Extended Community Types" registry with Type Value 0x08 for
-      "Flow spec redirect/mirror to IP next-hop".  IANA is requested to
-      deprecate this registration.</t>
+      <t>In a previous draft of this document, IANA had allocated an
+      extended community from the "BGP Transitive Extended Community Types"
+      registry with Type Value 0x08 for "Flow spec redirect/mirror to IP
+      next-hop".  IANA is requested to deprecate this registration.</t>
     </section>
     
   </middle>
