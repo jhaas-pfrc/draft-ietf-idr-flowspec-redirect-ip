@@ -274,7 +274,7 @@
         extended community is invalid, the extended community SHOULD be
         ignored.</t>
 
-        <t>It MUST be possible to disable this additional validation check on a
+        <t>It MUST be possible to disable these additional validation checks on a
         per-EBGP session basis.</t>
       </section>
       <section>
