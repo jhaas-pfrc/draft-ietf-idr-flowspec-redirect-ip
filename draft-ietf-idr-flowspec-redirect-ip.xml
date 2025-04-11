@@ -13,7 +13,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-idr-flowspec-redirect-ip-03"
+  docName="draft-ietf-idr-flowspec-redirect-ip-04"
   ipr="trust200902"
   obsoletes=""
   updates=""
@@ -24,7 +24,7 @@
   <front>
     <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect-to-IP Action</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-03"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-04"/>
    
     <author fullname="James Uttaro" initials="J." surname="Uttaro">
       <organization>Individual Contributor</organization>
@@ -115,7 +115,7 @@
       </address>
     </author>
    
-    <date year="2024"/>
+    <date year="2025"/>
 
     <area>Routing</area>
     <workgroup>IDR Working Group</workgroup>
