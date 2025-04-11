@@ -26,13 +26,6 @@
 
     <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-04"/>
    
-    <author fullname="James Uttaro" initials="J." surname="Uttaro">
-      <organization>Individual Contributor</organization>
-      <address>
-	<email>juttaro@ieee.org</email>  
-      </address>
-    </author>
-
     <author fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>Juniper Networks</organization>
       <address>
@@ -428,6 +421,13 @@
             <country>USA</country>
           </postal>        
           <email>djsmith@cisco.com</email>
+        </address>
+      </contact>
+
+      <contact fullname="James Uttaro" initials="J." surname="Uttaro">
+        <organization>Individual Contributor</organization>
+        <address>
+          <email>juttaro@ieee.org</email>  
         </address>
       </contact>
     </section>
