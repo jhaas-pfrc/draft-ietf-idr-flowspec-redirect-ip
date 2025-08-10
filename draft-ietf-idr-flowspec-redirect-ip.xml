@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-model href="rfc7991bis.rnc"?>  <!-- Required for schema validation and schema-aware editing -->
-<!-- <?xml-stylesheet type="text/xsl" href="rfc2629.xslt" ?> --> 
+<!-- <?xml-stylesheet type="text/xsl" href="rfc2629.xslt" ?> -->
 <!-- This third-party XSLT can be enabled for direct transformations in XML processors, including most browsers -->
 
 <!DOCTYPE rfc [
@@ -25,7 +25,7 @@
     <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect-to-IP Action</title>
 
     <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-04"/>
-   
+
     <author role="editor" fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>HPE</organization>
       <address>
@@ -35,8 +35,8 @@
           <region>CA</region>
           <code>94089</code>
           <country>US</country>
-        </postal>        
-        <email>jhaas@juniper.net</email>  
+        </postal>
+        <email>jhaas@juniper.net</email>
       </address>
     </author>
 
@@ -62,11 +62,11 @@
       including the IPv4 or IPv6 target address, are encoded in newly defined
       BGP extended communities.</t>
     </abstract>
- 
+
   </front>
 
   <middle>
-    
+
     <section>
       <name>Introduction</name>
       <t><xref target="RFC8955">BGP flow-spec</xref> is an extension to BGP
@@ -88,7 +88,7 @@
       provides a simpler method for policy-based forwarding. The details of the
       action, including the IPv4 or IPv6 target address, are encoded in newly
       defined BGP extended communities.</t>
-      
+
       <section anchor="requirements">
         <name>Requirements Language</name>
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
@@ -107,7 +107,7 @@
       address-specific or IPv6-address-specific, depending on whether the
       redirection target address is IPv4 or IPv6.</t>
 
-      <t>For the IPv4 address-specific extended community 
+      <t>For the IPv4 address-specific extended community
       <xref target="RFC4360"/>, the IANA-assigned sub-type value 0x0c indicates
       that the Global Administrator and Local Administrator fields encode a
       flow-spec "redirect-to-IPv4" action. In the encoding of this action, the
@@ -142,13 +142,14 @@
       <t>All bits other than the "C" bit in the local administrator field MUST
       be set to 0 by the originating BGP speaker and ignored by receiving BGP
       speakers.</t>
-      
+
       <section anchor="validation">
         <name>Validation Procedures</name>
         <t>The validation check described in <xref target="RFC8955"/> and
-        revised in <xref target="RFC9117"/> SHOULD be
+	<xref target="RFC8956"/>, and
+        revised in <xref target="RFC9117"/>, SHOULD be
         applied by default to received flow-spec routes with a "redirect-to-IP"
-        extended community, as it is to all types of flow-spec routes. 
+        extended community, as it is to all types of flow-spec routes.
         When this check is applied, a flow-spec route with a Destination Prefix
         subcomponent that originated outside the local AS is considered valid
         only if the neighbor AS implied in the AS_PATH attribute is the
@@ -248,35 +249,109 @@
 	SHOULD load-share the redirected/copied packets across all the "target
 	addresses", with the same fallback rules as discussed in the previous
 	paragraph. Note that this situation does not require the BGP speaker to
-	have multiple peers; i.e., <xref target="RFC7911">BGP Add-Paths</xref>
-	could be used for the flow-spec address family.</t>
+	have multiple peers.  (For example, <xref target="RFC7911">BGP
+	Add-Paths</xref> could be used for the flow-spec address family.)</t>
 
-	<!-- XXX Adam notes the following section isn't supported in Nokia's
-	implementation and should be audited vs. actual support across the
-	vendors. -->
-	<t>If a BGP speaker receives a flow-spec route with one or more "redirect
-	to IP" extended communities and one or more "redirect-to-VRF" extended
-	communities, and this route represents the one and only best path, the
-	"redirect-to-IP" actions described above should be applied in the context
-	of the "target VRF" matching the "redirect-to-VRF" extended community -
-	i.e. the "target addresses" should be looked up in the FIB of the "target
-	VRF". If there are multiple "redirect-to-VRF" extended communities in the
-	route, the "target VRF" SHOULD be the one that matches the
-	"redirect-to-VRF" extended community with the highest numerical value. If
-	the BGP speaker is not capable of "redirect-to-VRF" followed by 
-	"redirect-to-IP" then it SHOULD give preference to performing the
-	"redirect-to-VRF" action and doing only longest-prefix-match forwarding
-	in the "target VRF".</t>
+	<section>
+	  <name>Interactions with Redirect to VRF Extended Community</name>
+	  <!-- XXX Adam notes the following section isn't supported in Nokia's
+	  implementation and should be audited vs. actual support across the
+	  vendors. -->
+	  <t>If a BGP speaker receives a flow-spec route with one or more "redirect
+	  to IP" extended communities and one or more
+	  "redirect-to-VRF"
+	  (<xref target="RFC8955" section="7.4" sectionFormat="comma"/>)
+	  extended
+	  communities, and this route represents the one and only best path, the
+	  "redirect-to-IP" actions described above should be applied in the context
+	  of the "target VRF" matching the "redirect-to-VRF" extended community -
+	  i.e. the "target addresses" should be looked up in the FIB of the "target
+	  VRF". If there are multiple "redirect-to-VRF" extended communities in the
+	  route, the "target VRF" SHOULD be the one that matches the
+	  "redirect-to-VRF" extended community with the highest numerical value. If
+	  the BGP speaker is not capable of "redirect-to-VRF" followed by
+	  "redirect-to-IP" then it SHOULD give preference to performing the
+	  "redirect-to-VRF" action and doing only longest-prefix-match forwarding
+	  in the "target VRF".</t>
 
-	<t>If a BGP speaker receives multiple flow-spec routes for the same
-	flow-spec NLRI, and all of them are considered best and usable paths
-	according to the BGP speaker's multipath configuration, and they carry a
-	combination of "redirect-to-IP" and "redirect-to-VRF" extended
-	communities, the BGP speaker SHOULD apply the "redirect-to-IP" actions in
-	the context of the "target VRF" as described above.  Note that this
-	situation does not require the BGP speaker to have multiple peers - i.e.
-	<xref target="RFC7911">BGP Add-Paths</xref> could be used for the
-	flow-spec address family.</t>
+	  <t>If a BGP speaker receives multiple flow-spec routes for the same
+	  flow-spec NLRI, and all of them are considered best and usable paths
+	  according to the BGP speaker's multipath configuration, and they carry a
+	  combination of "redirect-to-IP" and "redirect-to-VRF" extended
+	  communities, the BGP speaker SHOULD apply the "redirect-to-IP" actions in
+	  the context of the "target VRF" as described above.  Note that this
+	  situation does not require the BGP speaker to have multiple peers - i.e.
+	  <xref target="RFC7911">BGP Add-Paths</xref> could be used for the
+	  flow-spec address family.</t>
+	</section>
+
+	<section>
+	  <name>Interactions with Other Flowspec Traffic Filtering Actions</name>
+
+	  <t>Traffic redirection or copying leverages the result of the lookup
+	  operation in the database used to resolve next hop addresses of the
+	  target address carried in the redirect-to-ip Extended Communities.
+	  The forwarding result of this operation typically is implemented as a
+	  IP forwarding operation, or results in the matching traffic being
+	  encapsulated in a tunnel.  This operation will generally
+	  short-circuit other traffic filtering options for the redirected or
+	  copied traffic.  As a result, the expected behaviors when
+	  redirect-to-ip is implemented and the following other traffic
+	  filtering actions are carried with the flowspec route are:</t>
+
+	  <dl newline="true">
+	    <dt>Traffic Rate in bytes (<xref target="RFC8955" section="7.1"/>):</dt>
+	    <dd>Redirected and copied traffic are subject to the traffic policing
+	    mechanisms resulting from the lookup vs. the next hop database.  This
+	    traffic filtering action is thus IGNORED for traffic that is
+	    redirected or copied.</dd>
+
+	    <dt>Traffic Rate in packets (<xref target="RFC8955" section="7.2"/>):</dt>
+	    <dd>Redirected and copied traffic are subject to the traffic policing
+	    mechanisms resulting from the lookup vs. the next hop database.  This
+	    traffic filtering action is thus IGNORED for traffic that is
+	    redirected or copied.</dd>
+
+	    <dt>Terminal action (<xref target="RFC8955" section="7.3"/>):</dt>
+	    <dd>Redirection of matching traffic is considered a terminating
+	    action and the non-terminal action (T == 1) is IGNORED.  Copying of
+	    matching traffic is considered a non-terminating action and the
+	    terminal action bit's behavior is respected in implementations that
+	    support copying.</dd>
+
+	    <dt>Sampling (<xref target="RFC8955" section="7.3"/>):</dt>
+	    <dd>Sampling MAY be done as part of the redirection/copy.</dd>
+
+	    <dt>Traffic marking (<xref target="RFC8955" section="7.5"/>):</dt>
+	    <dd>Redirected and copied traffic are subject to the traffic policing
+	    mechanisms resulting from the lookup vs. the next hop database.  This
+	    traffic filtering action is thus IGNORED for traffic that is
+	    redirected or copied.</dd>
+
+	    <dt>SFC classifier (<xref target="RFC8955" section="7.4"/>):</dt>
+	    <dd>Redirected and copied traffic are subject to the traffic policing
+	    mechanisms resulting from the lookup vs. the next hop database.  This
+	    traffic filtering action is thus IGNORED for traffic that is
+	    redirected or copied.</dd>
+
+	    <!-- XXX JMH - discuss with authors -->
+	    <dt>Redirect to indirection-id (<xref target="I-D.ietf-idr-flowspec-path-redirect" section="4"/>):</dt>
+	    <dd>In general, multiple operations supporting redirection or
+	    copying SHOULD NOT be present in the same BGP flowspec route.  When
+	    both redirect-to-ip and redirect to indirection-id are both present
+	    on the same route, redirect-to-IP SHALL have higher precendence for
+	    redirection and copying.</dd>
+
+	    <!-- XXX JMH - discuss with authors -->
+	    <dt>SRv6 Redirect to indirection-id (<xref target="I-D.ietf0-idr-srv6-flowspec-path-redirect" section="2"/>):</dt>
+	    <dd>In general, multiple operations supporting redirection or
+	    copying SHOULD NOT be present in the same BGP flowspec route.  When
+	    both redirect-to-ip and SRv6 redirect to indirection-id are both present
+	    on the same route, redirect-to-IP SHALL have higher precendence for
+	    redirection and copying.</dd>
+
+	  </dl>
+	</section>
 
       </section>
     </section>
@@ -297,7 +372,7 @@
       <t>This section documentations the <xref target="RFC7942"/>
       implementation status of this document.</t>
 
-       <!-- 
+       <!--
        -  The organization responsible for the implementation, if any.
 
        -  The implementation's name and/or a link to a web page where the
@@ -424,7 +499,7 @@
       registry with Type Value 0x08 for "Flow spec redirect/mirror to IP
       next-hop".  IANA is requested to deprecate this registration.</t>
     </section>
-    
+
   </middle>
 
   <back>
@@ -432,15 +507,18 @@
       <name>References</name>
       <references>
         <name>Normative References</name>
-        
+
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4360.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5701.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8955.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8956.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9117.xml"/>
+	<xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-path-redirect.xml"/>
+	<xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf0-idr-srv6-flowspec-path-redirect.xml"/>
       </references>
- 
+
       <references>
         <name>Informative References</name>
 
@@ -448,20 +526,20 @@
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7942.xml"/>
       </references>
     </references>
-    
+
     <section anchor="Acknowledgements" numbered="false">
       <name>Acknowledgements</name>
       <t>The authors would like to thank Han Nguyen and Robert Raszuk for their
       feedback and suggestions.</t>
     </section>
-    
+
     <section anchor="Contributors" numbered="false">
       <name>Contributors</name>
 
       <contact fullname="James Uttaro" initials="J." surname="Uttaro">
         <organization>Individual Contributor</organization>
         <address>
-          <email>juttaro@ieee.org</email>  
+          <email>juttaro@ieee.org</email>
         </address>
       </contact>
 
@@ -474,15 +552,15 @@
 	    <region>CA</region>
 	    <code>95134</code>
 	    <country>USA</country>
-	  </postal>        
-	  <email>akarch@cisco.com</email>  
+	  </postal>
+	  <email>akarch@cisco.com</email>
 	</address>
       </contact>
 
       <contact fullname="Saikat Ray" initials="S." surname="Ray">
 	<organization>Individual Contributor</organization>
 	<address>
-	  <email>raysaikat@gmail.com</email>  
+	  <email>raysaikat@gmail.com</email>
 	</address>
       </contact>
 
@@ -495,7 +573,7 @@
             <region>NJ</region>
             <code>08830</code>
             <country>USA</country>
-          </postal>        
+          </postal>
           <email>djsmith@cisco.com</email>
         </address>
       </contact>
@@ -534,8 +612,8 @@
 	  <email>matthieu@pragma-security.com</email>
 	</address>
       </contact>
-   
+
     </section>
-    
+
  </back>
 </rfc>
