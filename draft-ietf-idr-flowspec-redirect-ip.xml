@@ -121,7 +121,7 @@
       traffic flow specification rules. This has many possible applications, but
       the primary one for many network operators is the distribution of traffic
       filtering actions for distributed denial of service (DDoS) mitigation.
-      The flow-spec standard <xref target="RFC5575"/> defines a redirect-to-VRF
+      The flow-spec standard <xref target="RFC8955"/> defines a redirect-to-VRF
       action for policy-based forwarding.  This mechanism can be difficult to
       use, particularly in networks without L3 VPN infrastructure.</t>
 
@@ -137,7 +137,7 @@
     
     <section>
       <name>Introduction</name>
-      <t><xref target="RFC5575">BGP flow-spec</xref> is an extension to BGP
+      <t><xref target="RFC8955">BGP flow-spec</xref> is an extension to BGP
       that allows for the dissemination of traffic flow specification rules.
       This has many possible applications, but the primary one for many network
       operators is the distribution of traffic filtering actions for
@@ -213,7 +213,7 @@
       
       <section anchor="validation">
         <name>Validation Procedures</name>
-        <t>The validation check described in <xref target="RFC5575"/> and
+        <t>The validation check described in <xref target="RFC8955"/> and
         revised in <xref target="RFC9117"/> SHOULD be
         applied by default to received flow-spec routes with a "redirect-to-IP"
         extended community, as it is to all types of flow-spec routes. 
@@ -396,7 +396,7 @@
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4360.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5701.xml"/>
-        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5575.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8955.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7911.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9117.xml"/>
       </references>
