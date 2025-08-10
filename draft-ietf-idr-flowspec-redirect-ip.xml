@@ -335,6 +335,83 @@
     </section>
 
     <section>
+      <name>Implementation Status</name>
+      <t>This section documentations the <xref target="RFC7942"/>
+      implementation status of this document.</t>
+
+       <!-- 
+       -  The organization responsible for the implementation, if any.
+
+       -  The implementation's name and/or a link to a web page where the
+	  implementation or a description of it can be found.
+
+       -  A brief general description.
+
+       -  The implementation's level of maturity: research, prototype,
+	  alpha, beta, production, widely used, etc.
+
+       -  Coverage: which parts of the protocol specification are
+	  implemented.
+
+       -  Version compatibility: what version/versions of the Internet-Draft
+	  are known to be implemented.
+
+       -  Licensing: the terms under which the implementation can be used.
+	  For example: proprietary, royalty licensing, freely distributable
+	  with acknowledgement (BSD style), freely distributable with
+	  requirement to redistribute source (General Public License (GPL)
+	  style), and other (specify).
+
+       -  Implementation experience: any useful information the implementers
+	  want to share with the community.
+
+       -  Contact information: ideally a person's name and email address,
+	  but possibly just a URL or mailing list.
+
+       -  The date when information about this particular implementation was
+	  last updated.
+      -->
+
+      <section title="HPE / Juniper Networks">
+	<dl newline="true">
+	  <dt>Organization:</dt>
+	  <dd>HPE / Juniper Networks</dd>
+	  <dt>Implementation Name:</dt>
+	  <dd>Junos 18.4R1 and later</dd>
+	  <dt>Description:</dt>
+	  <dd>Juniper redirect-to-ip feature</dd>
+	  <dt>Maturity:</dt>
+	  <dd>Widely used.</dd>
+	  <dt>Coverage:</dt>
+	  <dd>
+	    <ul>
+	      <li>Section 2 IPv4 Extended Community - Implemented.</li>
+	      <li>Section 2 IPv6 Extended Community - Not Implemented.</li>
+	      <li>Section 2 Redirect (C == 0) - Implemented.</li>
+	      <li>Section 2 Copy (C == l) - Not Implemented.</li>
+	      <li>Section 2.1 Validation - Not Implemented.</li>
+	      <li>Section 2.2 Longest prefix match - Implemented.</li>
+	      <li>Section 2.2 Best path ECMP - Implemented.</li>
+	      <li>Section 2.2 Multiple communities ECMP load sharing - Implemented.</li>
+	      <li>Section 2.2 Redirect-to-IP in Redirect-to-VRF - Not Implemented.</li>
+	    </ul>
+	  </dd>
+	  <dt>Version Compatibility:</dt>
+	  <dd>draft-ietf-idr-flowspec-redirect-ip-02</dd>
+	  <dt>Licensing:</dt>
+	  <dd>Proprietary</dd>
+	  <dt>Implementation Experience:</dt>
+	  <dd></dd>
+	  <dt>Contact Information:</dt>
+	  <dd>Jeffrey Haas - jhaas@juniper.net</dd>
+	  <dt>Last Updated:</dt>
+	  <dd>August 2025</dd>
+	</dl>
+
+      </section>
+    </section>
+
+    <section>
       <name>IANA Considerations</name>
 
       <t>IANA has allocated an extended community from the "Transitive
@@ -373,6 +450,7 @@
         <name>Informative References</name>
 
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7911.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7942.xml"/>
       </references>
     </references>
     
