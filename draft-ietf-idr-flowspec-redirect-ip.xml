@@ -26,7 +26,7 @@
 
     <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-04"/>
    
-    <author fullname="Jeffrey Haas" initials="J." surname="Haas">
+    <author role="editor" fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>HPE</organization>
       <address>
         <postal>
@@ -40,48 +40,6 @@
       </address>
     </author>
 
-    <author fullname="Saikat Ray" initials="S." surname="Ray">
-      <organization>Individual Contributor</organization>
-      <address>
-        <email>raysaikat@gmail.com</email>  
-      </address>
-    </author>
-
-    <author fullname="Pradosh Mohapatra" initials="P." surname="Mohapatra">
-      <organization>Sproute Networks</organization>
-      <address>
-	<email>pradosh@sproute.com</email>
-      </address>
-    </author>
-
-    <author fullname="Wim Henderickx" initials="W" surname="Henderickx">
-      <organization showOnFrontPage="true">Nokia</organization>
-      <address>
-	<postal>
-	  <street>copernicuslaan 50</street>
-	  <city>Antwerp</city>
-	  <code>2018</code>
-	  <country>Belgium</country>
-	</postal>
-	<email>wim.henderickx@nokia.com</email>
-      </address>
-    </author>
-
-    <author fullname="A. Simpson" initials="A." surname="Simpson">
-      <organization>Nokia</organization>
-
-      <address>
-        <email>adam.1.simpson@nokia.com</email>
-      </address>
-    </author>
-
-    <author fullname="Matthieu Texier" initials="M." surname="Texier">
-      <organization>Pragma Security</organization>
-      <address>
-        <email>matthieu@pragma-security.com</email>
-      </address>
-    </author>
-   
     <date year="2025"/>
 
     <area>Routing</area>
@@ -499,19 +457,6 @@
     
     <section anchor="Contributors" numbered="false">
       <name>Contributors</name>
-      <contact fullname="David Smith" initials="D" surname="Smith">
-        <organization>Cisco</organization>
-        <address>
-          <postal>
-            <street>111 Wood Avenue South</street>
-            <city>Iselin</city>
-            <region>NJ</region>
-            <code>08830</code>
-            <country>USA</country>
-          </postal>        
-          <email>djsmith@cisco.com</email>
-        </address>
-      </contact>
 
       <contact fullname="James Uttaro" initials="J." surname="Uttaro">
         <organization>Individual Contributor</organization>
@@ -533,6 +478,63 @@
 	  <email>akarch@cisco.com</email>  
 	</address>
       </contact>
+
+      <contact fullname="Saikat Ray" initials="S." surname="Ray">
+	<organization>Individual Contributor</organization>
+	<address>
+	  <email>raysaikat@gmail.com</email>  
+	</address>
+      </contact>
+
+      <contact fullname="David Smith" initials="D" surname="Smith">
+        <organization>Cisco</organization>
+        <address>
+          <postal>
+            <street>111 Wood Avenue South</street>
+            <city>Iselin</city>
+            <region>NJ</region>
+            <code>08830</code>
+            <country>USA</country>
+          </postal>        
+          <email>djsmith@cisco.com</email>
+        </address>
+      </contact>
+
+      <contact fullname="Pradosh Mohapatra" initials="P." surname="Mohapatra">
+	<organization>Sproute Networks</organization>
+	<address>
+	  <email>pradosh@sproute.com</email>
+	</address>
+      </contact>
+
+      <contact fullname="Wim Henderickx" initials="W" surname="Henderickx">
+	<organization showOnFrontPage="true">Nokia</organization>
+	<address>
+	  <postal>
+	    <street>copernicuslaan 50</street>
+	    <city>Antwerp</city>
+	    <code>2018</code>
+	    <country>Belgium</country>
+	  </postal>
+	  <email>wim.henderickx@nokia.com</email>
+	</address>
+      </contact>
+
+      <contact fullname="A. Simpson" initials="A." surname="Simpson">
+	<organization>Nokia</organization>
+
+	<address>
+	  <email>adam.1.simpson@nokia.com</email>
+	</address>
+      </contact>
+
+      <contact fullname="Matthieu Texier" initials="M." surname="Texier">
+	<organization>Pragma Security</organization>
+	<address>
+	  <email>matthieu@pragma-security.com</email>
+	</address>
+      </contact>
+   
     </section>
     
  </back>
