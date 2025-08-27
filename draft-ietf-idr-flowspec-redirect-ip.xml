@@ -86,7 +86,7 @@
 
       <t>This draft proposes a new redirect-to-IP flow-spec action that
       provides a method for policy-based forwarding to redirect or copy
-      matching traffic to a specific IP address.  This method of redirection
+      matching traffic toward a specific IP address.  This method of redirection
       and copying is simpler than the existing methods in 
       <xref target="RFC8955"/> and <xref target="RFC8956"/> to redirect traffic
       to a VRF.  The details of the action, including the IPv4 or IPv6 target
