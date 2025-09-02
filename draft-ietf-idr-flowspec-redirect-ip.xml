@@ -193,7 +193,8 @@
 	<ul>
 	  <li>If the flow-spec route has a non-empty AS_PATH and any AS_PATH
 	  path segment is of the type AS_SET or AS_CONFED_SET, then the
-	  extended community is considered "invalid".</li>
+	  extended community is considered "invalid".  Compare similarly to
+	  <xref target="RFC9774" section="4"/>.</li>
 
           <li>If the flow-spec route has a non-empty AS_PATH indicating origin
           AS = X, and the resolving route of the "target-address" is a BGP route
@@ -543,6 +544,7 @@
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8955.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8956.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9117.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9774.xml"/>
 	<xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-path-redirect.xml"/>
 	<xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf0-idr-srv6-flowspec-path-redirect.xml"/>
       </references>
