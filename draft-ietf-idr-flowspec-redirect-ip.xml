@@ -26,7 +26,7 @@
 
     <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-04"/>
 
-    <author role="editor" fullname="Jeffrey Haas" initials="J." surname="Haas">
+    <author fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>HPE</organization>
       <address>
         <postal>
@@ -37,6 +37,27 @@
           <country>US</country>
         </postal>
         <email>jhaas@juniper.net</email>
+      </address>
+    </author>
+
+    <author fullname="Wim Henderickx" initials="W" surname="Henderickx">
+      <organization showOnFrontPage="true">Nokia</organization>
+      <address>
+	<postal>
+	  <street>copernicuslaan 50</street>
+	  <city>Antwerp</city>
+	  <code>2018</code>
+	  <country>Belgium</country>
+	</postal>
+	<email>wim.henderickx@nokia.com</email>
+      </address>
+    </author>
+
+    <author fullname="A. Simpson" initials="A." surname="Simpson">
+      <organization>Nokia</organization>
+
+      <address>
+	<email>adam.1.simpson@nokia.com</email>
       </address>
     </author>
 
@@ -589,27 +610,6 @@
         <organization>Individual Contributor</organization>
 	<address>
 	<email>pradosh@google.com</email>
-	</address>
-      </contact>
-
-      <contact fullname="Wim Henderickx" initials="W" surname="Henderickx">
-	<organization showOnFrontPage="true">Nokia</organization>
-	<address>
-	  <postal>
-	    <street>copernicuslaan 50</street>
-	    <city>Antwerp</city>
-	    <code>2018</code>
-	    <country>Belgium</country>
-	  </postal>
-	  <email>wim.henderickx@nokia.com</email>
-	</address>
-      </contact>
-
-      <contact fullname="A. Simpson" initials="A." surname="Simpson">
-	<organization>Nokia</organization>
-
-	<address>
-	  <email>adam.1.simpson@nokia.com</email>
 	</address>
       </contact>
 
