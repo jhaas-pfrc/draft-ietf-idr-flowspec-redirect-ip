@@ -583,6 +583,43 @@
 	</dl>
       </section>
 
+      <section title="Nokia">
+        <dl newline="true">
+          <dt>Organization:</dt>
+          <dd>Nokia</dd>
+          <dt>Implementation Name:</dt>
+          <dd>SROS 16.0 and later</dd>
+          <dt>Description:</dt>
+          <dd>BGP Flow-Spec Redirect to IP Support</dd>
+          <dt>Maturity:</dt>
+          <dd>IWidely Used</dd>
+          <dt>Coverage:</dt>
+          <dd>
+            <ul>
+              <li>Section 2 IPv4 Extended Community - Implemented.</li>
+              <li>Section 2 IPv6 Extended Community - Implemented.</li>
+              <li>Section 2 Redirect (C == 0) - Implemented.</li>
+              <li>Section 2 Copy (C == l) - Not Implemented.</li>
+              <li>Section 2.1 Validation - Not Implemented.</li>
+              <li>Section 2.2 Longest prefix match - Implemented.</li>
+              <li>Section 2.2 Best path ECMP - Implemented.</li>
+              <li>Section 2.2 Multiple communities ECMP load sharing - Not Implemented.</li>
+              <li>Section 2.2 Redirect-to-IP in Redirect-to-VRF - Not Implemented.</li>
+            </ul>
+          </dd>
+          <dt>Version Compatibility:</dt>
+          <dd>draft-ietf-idr-flowspec-redirect-ip-02</dd>
+          <dt>Licensing:</dt>
+          <dd>Proprietary</dd>
+          <dt>Implementation Experience:</dt>
+          <dd></dd>
+          <dt>Contact Information:</dt>
+          <dd>Adam Simpson - adam.1.simpson@nokia.com</dd>
+          <dt>Last Updated:</dt>
+          <dd>February 2026</dd>
+        </dl>
+      </section>
+
     </section>
 
     <section>
