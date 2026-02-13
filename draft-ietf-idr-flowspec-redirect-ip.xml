@@ -13,7 +13,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-idr-flowspec-redirect-ip-04"
+  docName="draft-ietf-idr-flowspec-redirect-ip-05"
   ipr="trust200902"
   obsoletes=""
   updates=""
@@ -24,7 +24,7 @@
   <front>
     <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect-to-IP Action</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-04"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-05"/>
 
     <author fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>HPE</organization>
@@ -61,7 +61,7 @@
       </address>
     </author>
 
-    <date year="2025"/>
+    <date year="2026"/>
 
     <area>Routing</area>
     <workgroup>IDR Working Group</workgroup>
@@ -506,6 +506,118 @@
 	  <dt>Last Updated:</dt>
 	  <dd>14 October 2024 - IDR mailing list</dd>
 	</dl>
+      </section>
+
+      <section title="Huawei Technologies Co., Ltd.">
+	<dl newline="true">
+	  <dt>Organization:</dt>
+	  <dd>Huawei Technologies Co., Ltd.</dd>
+	  <dt>Implementation Name:</dt>
+	  <dd>VRP V800R019C10 and later</dd>
+	  <dt>Description:</dt>
+	  <dd>Huawei redirect-to-ip feature</dd>
+	  <dt>Maturity:</dt>
+	  <dd>Widely used.</dd>
+	  <dt>Coverage:</dt>
+	  <dd>
+	    <ul>
+	      <li>Section 2 IPv4 Extended Community - Implemented.</li>
+	      <li>Section 2 IPv6 Extended Community - Implemented.</li>
+	      <li>Section 2 Redirect (C == 0) - Implemented.</li>
+	      <li>Section 2 Copy (C == l) - Not Implemented.</li>
+	      <li>Section 2.1 Validation - Implemented.</li>
+	      <li>Section 2.2 Longest prefix match - Implemented.</li>
+	      <li>Section 2.2 Best path ECMP - Implemented.</li>
+	      <li>Section 2.2 Multiple communities ECMP load sharing - Not Implemented.</li>
+	      <li>Section 2.2 Redirect-to-IP in Redirect-to-VRF - Not Implemented.</li>
+	    </ul>
+	  </dd>
+	  <dt>Version Compatibility:</dt>
+	  <dd>draft-ietf-idr-flowspec-redirect-ip-02</dd>
+	  <dt>Licensing:</dt>
+	  <dd>Proprietary</dd>
+	  <dt>Implementation Experience:</dt>
+	  <dd>Nothing specific</dd>
+	  <dt>Contact Information:</dt>
+	  <dd><t>Shunwan Zhuang - zhuangshunwan@huawei.com</t>
+		  <t>Ming Shen - shenming2@huawei.com</t></dd>
+	  <dt>Last Updated:</dt>
+	  <dd>December 2025</dd>
+	</dl>
+      </section>
+
+      <section title="Arrcus">
+	<dl newline="true">
+	  <dt>Organization:</dt>
+	  <dd>Arrcus</dd>
+	  <dt>Implementation Name:</dt>
+	  <dd>ArcOS (BGP Flow-Spec with redirect-to-IP)</dd>
+	  <dt>Description:</dt>
+	  <dd>ArcOS BGP Flow-Spec redirect-to-IPv4 extended community support.</dd>
+	  <dt>Maturity:</dt>
+	  <dd>In deployment</dd>
+	  <dt>Coverage:</dt>
+	  <dd>
+	    <ul>
+	      <li>Section 2 IPv4 Extended Community - Implemented.</li>
+	      <li>Section 2 IPv6 Extended Community - Not Implemented.</li>
+	      <li>Section 2 Redirect (C == 0) - Implemented.</li>
+	      <li>Section 2 Copy (C == l) - Not Implemented.</li>
+	      <li>Section 2.1 Validation - Not Implemented.</li>
+	      <li>Section 2.2 Longest prefix match - Implemented.</li>
+	      <li>Section 2.2 Best path ECMP - Implemented.</li>
+	      <li>Section 2.2 Multiple communities ECMP load sharing - Not Implemented.</li>
+	      <li>Section 2.2 Redirect-to-IP in Redirect-to-VRF - Not Implemented.</li>
+	    </ul>
+	  </dd>
+	  <dt>Version Compatibility:</dt>
+	  <dd>draft-ietf-idr-flowspec-redirect-ip-02</dd>
+	  <dt>Licensing:</dt>
+	  <dd>Proprietary</dd>
+	  <dt>Implementation Experience:</dt>
+	  <dd>Nothing specific</dd>
+	  <dt>Contact Information:</dt>
+	  <dd>Suresh Pasupula - sureshp@arrcus.com</dd>
+	  <dt>Last Updated:</dt>
+	  <dd>February 2026</dd>
+	</dl>
+      </section>
+
+      <section title="Nokia">
+        <dl newline="true">
+          <dt>Organization:</dt>
+          <dd>Nokia</dd>
+          <dt>Implementation Name:</dt>
+          <dd>SROS 16.0 and later</dd>
+          <dt>Description:</dt>
+          <dd>BGP Flow-Spec Redirect to IP Support</dd>
+          <dt>Maturity:</dt>
+          <dd>IWidely Used</dd>
+          <dt>Coverage:</dt>
+          <dd>
+            <ul>
+              <li>Section 2 IPv4 Extended Community - Implemented.</li>
+              <li>Section 2 IPv6 Extended Community - Implemented.</li>
+              <li>Section 2 Redirect (C == 0) - Implemented.</li>
+              <li>Section 2 Copy (C == l) - Not Implemented.</li>
+              <li>Section 2.1 Validation - Not Implemented.</li>
+              <li>Section 2.2 Longest prefix match - Implemented.</li>
+              <li>Section 2.2 Best path ECMP - Implemented.</li>
+              <li>Section 2.2 Multiple communities ECMP load sharing - Not Implemented.</li>
+              <li>Section 2.2 Redirect-to-IP in Redirect-to-VRF - Not Implemented.</li>
+            </ul>
+          </dd>
+          <dt>Version Compatibility:</dt>
+          <dd>draft-ietf-idr-flowspec-redirect-ip-02</dd>
+          <dt>Licensing:</dt>
+          <dd>Proprietary</dd>
+          <dt>Implementation Experience:</dt>
+          <dd></dd>
+          <dt>Contact Information:</dt>
+          <dd>Adam Simpson - adam.1.simpson@nokia.com</dd>
+          <dt>Last Updated:</dt>
+          <dd>February 2026</dd>
+        </dl>
       </section>
 
     </section>
