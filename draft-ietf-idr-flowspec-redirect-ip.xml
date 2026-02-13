@@ -546,6 +546,43 @@
 	</dl>
       </section>
 
+      <section title="Arrcus">
+	<dl newline="true">
+	  <dt>Organization:</dt>
+	  <dd>Arrcus</dd>
+	  <dt>Implementation Name:</dt>
+	  <dd>ArcOS (BGP Flow-Spec with redirect-to-IP)</dd>
+	  <dt>Description:</dt>
+	  <dd>ArcOS BGP Flow-Spec redirect-to-IPv4 extended community support.</dd>
+	  <dt>Maturity:</dt>
+	  <dd>In deployment</dd>
+	  <dt>Coverage:</dt>
+	  <dd>
+	    <ul>
+	      <li>Section 2 IPv4 Extended Community - Implemented.</li>
+	      <li>Section 2 IPv6 Extended Community - Not Implemented.</li>
+	      <li>Section 2 Redirect (C == 0) - Implemented.</li>
+	      <li>Section 2 Copy (C == l) - Not Implemented.</li>
+	      <li>Section 2.1 Validation - Not Implemented.</li>
+	      <li>Section 2.2 Longest prefix match - Implemented.</li>
+	      <li>Section 2.2 Best path ECMP - Implemented.</li>
+	      <li>Section 2.2 Multiple communities ECMP load sharing - Not Implemented.</li>
+	      <li>Section 2.2 Redirect-to-IP in Redirect-to-VRF - Not Implemented.</li>
+	    </ul>
+	  </dd>
+	  <dt>Version Compatibility:</dt>
+	  <dd>draft-ietf-idr-flowspec-redirect-ip-02</dd>
+	  <dt>Licensing:</dt>
+	  <dd>Proprietary</dd>
+	  <dt>Implementation Experience:</dt>
+	  <dd>Nothing specific</dd>
+	  <dt>Contact Information:</dt>
+	  <dd>Suresh Pasupula - sureshp@arrcus.com</dd>
+	  <dt>Last Updated:</dt>
+	  <dd>February 2026</dd>
+	</dl>
+      </section>
+
     </section>
 
     <section>
