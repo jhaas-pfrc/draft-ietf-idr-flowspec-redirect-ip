@@ -522,10 +522,10 @@
 	  <dd>
 	    <ul>
 	      <li>Section 2 IPv4 Extended Community - Implemented.</li>
-	      <li>Section 2 IPv6 Extended Community - Not Implemented.</li>
+	      <li>Section 2 IPv6 Extended Community - Implemented.</li>
 	      <li>Section 2 Redirect (C == 0) - Implemented.</li>
 	      <li>Section 2 Copy (C == l) - Not Implemented.</li>
-	      <li>Section 2.1 Validation - Not Implemented.</li>
+	      <li>Section 2.1 Validation - Implemented.</li>
 	      <li>Section 2.2 Longest prefix match - Implemented.</li>
 	      <li>Section 2.2 Best path ECMP - Implemented.</li>
 	      <li>Section 2.2 Multiple communities ECMP load sharing - Not Implemented.</li>
