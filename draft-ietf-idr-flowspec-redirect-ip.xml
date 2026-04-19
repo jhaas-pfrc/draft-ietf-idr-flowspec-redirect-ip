@@ -142,7 +142,7 @@
 
       <artwork type="ascii-art" align="center">
         <![CDATA[
- Figure 1 : Local Administrator
+ Figure 1 : Local Administrator sub-field
 
  0                   1
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5
@@ -162,6 +162,10 @@
 
       <section anchor="validation">
         <name>Validation Procedures</name>
+	<t>Additional validation checks apply to flow-spec routes using the
+	procedures defined in this document. It MUST be possible to disable
+	these additional validation checks on a per-EBGP session basis.</t>
+
         <t>The validation check described in <xref target="RFC8955"/> and
 	<xref target="RFC8956"/>, and
         revised in <xref target="RFC9117"/>, SHOULD be
@@ -175,58 +179,60 @@
         routes that are longer matches of the destination prefix.</t>
 
         <!-- XXX JMH - do implementations enforce this restriction on the redirect? -->
-        <t>BGP speakers that support the extended communities defined in this
-        draft MUST also, by default, apply additional validation rules when receiving
-        a flow-spec with these extended communities.  More specifically, the
-        router must consider a "redirect-to-IPv4" or "redirect-to-IPv6"
-        extended community to be invalid if the origin AS of the flow-spec
-        route does not match the origin AS of the best-match unicast route for
-        the "target-address". For example:</t>
+	<t>If the flow-spec route has a non-empty AS_PATH and any AS_PATH
+	path segment is of the type AS_SET or AS_CONFED_SET, then the
+	extended community is considered "invalid".  Compare similarly to
+	<xref target="RFC9774" section="4"/>.</t>
 
-	<ul>
-	  <li>If the flow-spec route has a non-empty AS_PATH and any AS_PATH
-	  path segment is of the type AS_SET or AS_CONFED_SET, then the
-	  extended community is considered "invalid".  Compare similarly to
-	  <xref target="RFC9774" section="4"/>.</li>
+	<section title="Redirect-to-IP Extended Community Validation Procedure">
+	  <t>BGP speakers that support the extended communities defined in this
+	  draft MUST also, by default, apply additional validation rules when receiving
+	  a flow-spec with these extended communities:</t>
 
-          <li>If the flow-spec route has a non-empty AS_PATH indicating origin
-          AS = X, and the resolving route of the "target-address" is a BGP route
-          with a non-empty AS_PATH indicating origin AS = X, then the extended
-          community is considered "valid".</li>
-          <li>If the flow-spec route has a null/empty AS_PATH, or an AS_PATH
-          with only local confederation elements, and the resolving route of the
-          "target-address" is a BGP route with a null/empty AS_PATH or an
-          AS_PATH with only local confederation elements then the extended
-          community is considered "valid".</li>
-          <li>If the flow-spec route has a null/empty AS_PATH, or an AS_PATH
-          with only local confederation elements, and the resolving route of the
-          "target-address" is a non-BGP route, then the extended community is
-          considered "valid".</li>
-          <li>If the flow-spec route has a null/empty AS_PATH or an AS_PATH
-          with only local confederation elements, and the resolving route of the
-          "target-address" is a BGP route that originated outside the local AS
-          or confederation, then the extended community is considered
-          "invalid".</li>
-          <li>If the flow-spec route has a non-empty AS_PATH indicating origin
-          AS = X, and the resolving route of the "target-address" is a BGP route
-          with a null/empty AS_PATH or an AS_PATH with only local confederation
-          elements, or it is a non-BGP route then the extended community is
-          considered "invalid".</li>
-        </ul>
+	  <t>If the flow-spec route has a null/empty AS_PATH, or an AS_PATH
+	  with only local confederation elements, and the resolving route of the
+	  "target-address" is a non-BGP route, then the extended community is
+	  considered "valid".</t>
 
-        <t>If any of the above checks determine that a "redirect-to-IP"
-        extended community is invalid, the extended community SHOULD be
-        ignored.</t>
+	  <t>When the best-match unicast route for the "target-address" is BGP, the
+	  router must consider a "redirect-to-IPv4" or "redirect-to-IPv6"
+	  extended community to be invalid if the origin AS of the flow-spec
+	  route does not match the origin AS of the best-match unicast route for
+	  the "target-address". For example:</t>
+	  <ul>
+	    <li>If the flow-spec route has a non-empty AS_PATH indicating origin
+	    AS = X, and the resolving route of the "target-address" is a BGP route
+	    with a non-empty AS_PATH indicating origin AS = X, then the extended
+	    community is considered "valid".</li>
+	    <li>If the flow-spec route has a null/empty AS_PATH, or an AS_PATH
+	    with only local confederation elements, and the resolving route of the
+	    "target-address" is a BGP route with a null/empty AS_PATH or an
+	    AS_PATH with only local confederation elements then the extended
+	    community is considered "valid".</li>
+	    <li>If the flow-spec route has a null/empty AS_PATH or an AS_PATH
+	    with only local confederation elements, and the resolving route of the
+	    "target-address" is a BGP route that originated outside the local AS
+	    or confederation, then the extended community is considered
+	    "invalid".</li>
+	    <li>If the flow-spec route has a non-empty AS_PATH indicating origin
+	    AS = X, and the resolving route of the "target-address" is a BGP route
+	    with a null/empty AS_PATH or an AS_PATH with only local confederation
+	    elements, or it is a non-BGP route then the extended community is
+	    considered "invalid".</li>
+	  </ul>
 
-        <t>It MUST be possible to disable these additional validation checks on a
-        per-EBGP session basis.</t>
+	  <t>If any of the above checks determine that a "redirect-to-IP"
+	  extended community is invalid, the extended community SHOULD be
+	  ignored.</t>
+	</section>
+
       </section>
       <section>
 	<name>Redirecting Matching Flowspec Traffic</name>
 
 	<t>Traffic that is to be redirected/copied for a "redirect-to-IP"
-	extended community SHOULD only be redirected if the community type
-	matches the traffic type.</t>
+	extended community SHOULD only be redirected or copied if the community type
+	matches the flow-spec AFI.</t>
 
 	<t>When a BGP speaker receives a flow-spec route with a "redirect-to-IP"
 	extended community and this route represents the one and only best path,
@@ -236,7 +242,9 @@
 	field (the "target address").  The BGP speaker is expected to do a
 	longest-prefix-match lookup of the "target address" in the database it
 	uses to resolve next-hop addresses and then forward the redirected/copied
-	packets based on the resulting route (the "target route"). If the "target
+	packets based on the resulting route (the "target route").</t>
+
+	<t>If the "target
 	route" has multiple ECMP next-hops, the redirected/copied packets SHOULD
 	be load-shared across these next-hops according to the router's ECMP
 	configuration. If the "target route" has one or more tunnel next-hops
@@ -250,12 +258,14 @@
 	<t>If a BGP speaker receives a flow-spec route with multiple
 	"redirect-to-IP" extended communities and this route represents the one
 	and only best path, it SHOULD load-share the redirected/copied packets
-	across all the "target addresses" according to its ECMP configuration. If
-	the BGP speaker is not capable of redirecting and copying the same packet
-	it SHOULD ignore the extended communities with C=0. If the BGP speaker is
-	not capable of redirecting/copying a packet towards multiple "target
-	addresses" it SHOULD deterministically select one "target address" and
-	ignore the others.</t>
+	across all the "target addresses" according to its ECMP configuration.</t>
+
+	<t>If the BGP speaker is not capable of redirecting and copying the
+	same packet as part of load-sharing it SHOULD ignore the extended
+	communities with C=0. If the BGP speaker is not capable of
+	redirecting/copying a packet towards multiple "target addresses" it
+	SHOULD deterministically select one "target address" and ignore the
+	others.</t>
 
 	<!-- XXX Adam notes the following section isn't supported in Nokia's
 	implementation and should be audited vs. actual support across the
@@ -290,7 +300,9 @@
 
 	  <t>If there are multiple "redirect-to-VRF" extended communities in the
 	  route, the "target VRF" SHOULD be the one that matches the
-	  "redirect-to-VRF" extended community with the highest numerical value. If
+	  "redirect-to-VRF" extended community with the highest numerical value
+	  treating the extended communities as an unsigned 64-bit number in
+	  network byte order. If
 	  the BGP speaker is not capable of "redirect-to-VRF" followed by
 	  "redirect-to-IP" then it SHOULD give preference to performing the
 	  "redirect-to-VRF" action and doing only longest-prefix-match forwarding
@@ -312,13 +324,13 @@
 
 	  <t>Traffic redirection or copying leverages the result of the lookup
 	  operation in the database used to resolve next hop addresses of the
-	  target address carried in the redirect-to-ip Extended Communities.
-	  The forwarding result of this operation typically is implemented as a
+	  target address carried in the redirect-to-IP Extended Communities.
+	  The forwarding result of this operation typically is implemented as an
 	  IP forwarding operation, or results in the matching traffic being
 	  encapsulated in a tunnel.  This operation will generally
 	  short-circuit other traffic filtering options for the redirected or
 	  copied traffic.  As a result, the expected behaviors when
-	  redirect-to-ip is implemented and the following other traffic
+	  redirect-to-IP is implemented and the following other traffic
 	  filtering actions are carried with the flowspec route are:</t>
 
 	  <dl newline="true">
@@ -350,7 +362,7 @@
 	    traffic filtering action is thus IGNORED for traffic that is
 	    redirected or copied.</dd>
 
-	    <dt>SFC classifier (<xref target="RFC8955" section="7.4"/>):</dt>
+	    <dt>SFC classifier (<xref target="RFC9015" section="7.4"/>):</dt>
 	    <dd>Redirected and copied traffic are subject to the traffic policing
 	    mechanisms resulting from the lookup vs. the next hop database.  This
 	    traffic filtering action is thus IGNORED for traffic that is
@@ -360,15 +372,15 @@
 	    <dt>Redirect to indirection-id (<xref target="I-D.ietf-idr-flowspec-path-redirect" section="4"/>):</dt>
 	    <dd>In general, multiple operations supporting redirection or
 	    copying SHOULD NOT be present in the same BGP flowspec route.  When
-	    both redirect-to-ip and redirect to indirection-id are both present
-	    on the same route, redirect-to-IP SHALL have higher precendence for
+	    both redirect-to-IP and redirect to indirection-id are both present
+	    on the same route, redirect-to-IP SHALL have higher precedence for
 	    redirection and copying.</dd>
 
 	    <!-- XXX JMH - discuss with authors -->
 	    <dt>SRv6 Redirect to indirection-id (<xref target="I-D.ietf0-idr-srv6-flowspec-path-redirect" section="2"/>):</dt>
 	    <dd>In general, multiple operations supporting redirection or
 	    copying SHOULD NOT be present in the same BGP flowspec route.  When
-	    both redirect-to-ip and SRv6 redirect to indirection-id are both present
+	    both redirect-to-IP and SRv6 redirect to indirection-id are both present
 	    on the same route, redirect-to-IP SHALL have higher precendence for
 	    redirection and copying.</dd>
 
@@ -385,13 +397,13 @@
       send traffic to a single next-hop, overwhelming that next-hop and
       resulting in inadvertent or deliberate denial of service. This is
       particularly a concern when the "redirect-to-IP" extended community is
-      allowed to cross AS boundaries. The validation check described in section
+      allowed to cross AS boundaries. The validation check described in
       <xref target="validation"/> significantly reduces this risk.</t>
     </section>
 
     <section>
       <name>Implementation Status</name>
-      <t>This section documentations the <xref target="RFC7942"/>
+      <t>This section documents the <xref target="RFC7942"/>
       implementation status of this document.</t>
 
        <!--
@@ -434,7 +446,7 @@
 	  <dt>Implementation Name:</dt>
 	  <dd>Junos 18.4R1 and later</dd>
 	  <dt>Description:</dt>
-	  <dd>Juniper redirect-to-ip feature</dd>
+	  <dd>Juniper redirect-to-IP feature</dd>
 	  <dt>Maturity:</dt>
 	  <dd>Widely used.</dd>
 	  <dt>Coverage:</dt>
@@ -443,7 +455,7 @@
 	      <li>Section 2 IPv4 Extended Community - Implemented.</li>
 	      <li>Section 2 IPv6 Extended Community - Not Implemented.</li>
 	      <li>Section 2 Redirect (C == 0) - Implemented.</li>
-	      <li>Section 2 Copy (C == l) - Not Implemented.</li>
+	      <li>Section 2 Copy (C == 1) - Not Implemented.</li>
 	      <li>Section 2.1 Validation - Not Implemented.</li>
 	      <li>Section 2.2 Longest prefix match - Implemented.</li>
 	      <li>Section 2.2 Best path ECMP - Implemented.</li>
@@ -471,7 +483,7 @@
 	  <dt>Implementation Name:</dt>
 	  <dd>VRP V800R019C10 and later</dd>
 	  <dt>Description:</dt>
-	  <dd>Huawei redirect-to-ip feature</dd>
+	  <dd>Huawei redirect-to-IP feature</dd>
 	  <dt>Maturity:</dt>
 	  <dd>Widely used.</dd>
 	  <dt>Coverage:</dt>
@@ -480,7 +492,7 @@
 	      <li>Section 2 IPv4 Extended Community - Implemented.</li>
 	      <li>Section 2 IPv6 Extended Community - Implemented.</li>
 	      <li>Section 2 Redirect (C == 0) - Implemented.</li>
-	      <li>Section 2 Copy (C == l) - Not Implemented.</li>
+	      <li>Section 2 Copy (C == 1) - Not Implemented.</li>
 	      <li>Section 2.1 Validation - Implemented.</li>
 	      <li>Section 2.2 Longest prefix match - Implemented.</li>
 	      <li>Section 2.2 Best path ECMP - Implemented.</li>
@@ -518,7 +530,7 @@
 	      <li>Section 2 IPv4 Extended Community - Implemented.</li>
 	      <li>Section 2 IPv6 Extended Community - Not Implemented.</li>
 	      <li>Section 2 Redirect (C == 0) - Implemented.</li>
-	      <li>Section 2 Copy (C == l) - Not Implemented.</li>
+	      <li>Section 2 Copy (C == 1) - Not Implemented.</li>
 	      <li>Section 2.1 Validation - Not Implemented.</li>
 	      <li>Section 2.2 Longest prefix match - Implemented.</li>
 	      <li>Section 2.2 Best path ECMP - Implemented.</li>
@@ -548,14 +560,14 @@
           <dt>Description:</dt>
           <dd>BGP Flow-Spec Redirect to IP Support</dd>
           <dt>Maturity:</dt>
-          <dd>IWidely Used</dd>
+          <dd>Widely Used</dd>
           <dt>Coverage:</dt>
           <dd>
             <ul>
               <li>Section 2 IPv4 Extended Community - Implemented.</li>
               <li>Section 2 IPv6 Extended Community - Implemented.</li>
               <li>Section 2 Redirect (C == 0) - Implemented.</li>
-              <li>Section 2 Copy (C == l) - Not Implemented.</li>
+              <li>Section 2 Copy (C == 1) - Not Implemented.</li>
               <li>Section 2.1 Validation - Not Implemented.</li>
               <li>Section 2.2 Longest prefix match - Implemented.</li>
               <li>Section 2.2 Best path ECMP - Implemented.</li>
@@ -611,6 +623,7 @@
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8955.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8956.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9015.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9117.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9774.xml"/>
 	<xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-path-redirect.xml"/>
@@ -629,6 +642,7 @@
       <name>Acknowledgements</name>
       <t>The authors would like to thank Han Nguyen and Robert Raszuk for their
       feedback and suggestions.</t>
+      <t>Ines Robles contributed to the quality of this document as part of review for the Routing Directorate.</t>
     </section>
 
     <section anchor="Contributors" numbered="false">
