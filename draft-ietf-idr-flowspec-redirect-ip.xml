@@ -591,6 +591,48 @@
     </section>
 
     <section>
+      <name>Operational Considerations</name>
+
+      <t>Implementations supporting the redirect-to-IP feature will redirect or
+      copy traffic to a target address based interactions with subsystems and
+      may do so in a dynamic manner.  These interactions <bcp14>SHOULD</bcp14>
+      be made visible in management systems used by operators to ensure correct
+      operations of this feature.  These interactions include:</t>
+
+      <ul>
+	<li>Routing: redirect-to-IP extended communities can change their
+	validation status based on the presence or absence of routes.  The
+	implementation <bcp14>SHOULD</bcp14> provide the ability to diagnose
+	why a given route does or does not validate vs. the routing table.
+	Implemenations <bcp14>MAY</bcp14> log such validation activity, but
+	<bcp14>SHOULD</bcp14> be prepared to rate-limit this logging based on
+	high rates of churn in the routing system.</li>
+
+	<li>Target address resolution: redirect-to-IP extended communities
+	can change their installed redirection forwarding behavior based on
+	the presence or absence of resolvability of the target address in the
+	database used to resolve next-hop addresses on the local system.  The
+	implementation <bcp14>SHOULD</bcp14> provide the ability to determine
+	what the resolved target address' forwarding behavior is and
+	<bcp14>SHOULD</bcp14> be able to determine this for each
+	redirect-to-IP extended community attached to the flow-spec route
+	when more than one such extended community is present.
+	Implementations <bcp14>MAY</bcp14> provide logging facilities for the
+	success or failure of such resolution procedures for flow-spec
+	routes, but <bcp14>SHOULD</bcp14> be prepared to rate-limit this
+	logging based on high rates of churn in that database.</li>
+
+	<li>Conflicting redirect-to-IP extended communities: Operators are
+	able to configure either outright conflicting redirect-to-IP extended
+	communities, or can configure such extended communities that an
+	implementation is unable to process.  An example of this is
+	simultaneously configuring extended communities with C=0 and C=1.
+	Implementations <bcp14>SHOULD</bcp14> bring such conflicts to the
+	operators attention through logging mechanisms.</li>
+      </ul>
+    </section>
+
+    <section>
       <name>IANA Considerations</name>
 
       <t>IANA has allocated an extended community from the "Transitive
