@@ -13,7 +13,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-idr-flowspec-redirect-ip-05"
+  docName="draft-ietf-idr-flowspec-redirect-ip-06"
   ipr="trust200902"
   obsoletes=""
   updates=""
@@ -24,19 +24,12 @@
   <front>
     <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect-to-IP Action</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-05"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-06"/>
 
     <author fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>HPE</organization>
       <address>
-        <postal>
-          <street>1133 Innovation Way</street>
-          <city>Sunnyvale</city>
-          <region>CA</region>
-          <code>94089</code>
-          <country>US</country>
-        </postal>
-        <email>jhaas@juniper.net</email>
+        <email>jeffrey.haas@hpe.com</email>
       </address>
     </author>
 
@@ -468,43 +461,6 @@
 	  <dd>Jeffrey Haas - jhaas@juniper.net</dd>
 	  <dt>Last Updated:</dt>
 	  <dd>August 2025</dd>
-	</dl>
-      </section>
-
-      <section title="Cisco IOS-XR">
-	<dl newline="true">
-	  <dt>Organization:</dt>
-	  <dd>Cisco</dd>
-	  <dt>Implementation Name:</dt>
-	  <dd>Cisco IOS-XR</dd>
-	  <dt>Description:</dt>
-	  <dd></dd>
-	  <dt>Maturity:</dt>
-	  <dd>Widely used.</dd>
-	  <dt>Coverage:</dt>
-	  <dd>
-	    <ul>
-	      <li>Section 2 IPv4 Extended Community - Not Implemented.</li>
-	      <li>Section 2 IPv6 Extended Community - Not Implemented.</li>
-	      <li>Section 2 Redirect (C == 0) - Not Implemented.</li>
-	      <li>Section 2 Copy (C == l) - Not Implemented.</li>
-	      <li>Section 2.1 Validation - Not Implemented.</li>
-	      <li>Section 2.2 Longest prefix match - ?.</li>
-	      <li>Section 2.2 Best path ECMP - ?.</li>
-	      <li>Section 2.2 Multiple communities ECMP load sharing - Not Implemented.</li>
-	      <li>Section 2.2 Redirect-to-IP in Redirect-to-VRF - Not Implemented.</li>
-	    </ul>
-	  </dd>
-	  <dt>Version Compatibility:</dt>
-	  <dd>draft-ietf-idr-flowspec-redirect-ip-00</dd>
-	  <dt>Licensing:</dt>
-	  <dd>Proprietary</dd>
-	  <dt>Implementation Experience:</dt>
-	  <dd></dd>
-	  <dt>Contact Information:</dt>
-	  <dd>Jakob Heitz</dd>
-	  <dt>Last Updated:</dt>
-	  <dd>14 October 2024 - IDR mailing list</dd>
 	</dl>
       </section>
 
