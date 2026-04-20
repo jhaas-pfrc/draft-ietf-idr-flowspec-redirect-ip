@@ -13,7 +13,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-idr-flowspec-redirect-ip-07"
+  docName="draft-ietf-idr-flowspec-redirect-ip-08"
   ipr="trust200902"
   obsoletes=""
   updates=""
@@ -24,7 +24,7 @@
   <front>
     <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect-to-IP Action</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-07"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-08"/>
 
     <author fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>HPE</organization>
@@ -67,7 +67,7 @@
       traffic flow specification rules. This has many possible applications, but
       the primary one for many network operators is the distribution of traffic
       filtering actions for distributed denial of service (DDoS) mitigation.
-      The flow-spec standard <xref target="RFC8955"/> defines a redirect-to-VRF
+      The flow-spec standard, RFC 8955, defines a redirect-to-VRF
       action for policy-based forwarding.  This mechanism can be difficult to
       use, particularly in networks without L3 VPN infrastructure.</t>
 
@@ -291,7 +291,7 @@
             <li>One or more "redirect-to-VRF" 
 	    (<xref target="RFC8955" section="7.4" sectionFormat="comma"/>)
 	    extended communities and,</li>
-            <li>This route represents the “one and only” best path,</li>
+            <li>This route represents the "one and only" best path,</li>
 	  </ul>
 	  <t>then the "redirect-to-IP" actions described above should be
 	  applied in the context of the "target VRF" matching the "redirect-to-
