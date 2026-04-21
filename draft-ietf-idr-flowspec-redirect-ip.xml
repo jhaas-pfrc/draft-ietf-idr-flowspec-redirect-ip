@@ -479,8 +479,6 @@
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9015.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9117.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9774.xml"/>
-	<xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-path-redirect.xml"/>
-	<xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf0-idr-srv6-flowspec-path-redirect.xml"/>
       </references>
 
       <references>
@@ -488,6 +486,8 @@
 
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7911.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7942.xml"/>
+	<xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-path-redirect.xml"/>
+	<xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf0-idr-srv6-flowspec-path-redirect.xml"/>
       </references>
     </references>
 
