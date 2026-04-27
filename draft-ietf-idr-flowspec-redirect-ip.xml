@@ -13,7 +13,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-idr-flowspec-redirect-ip-09"
+  docName="draft-ietf-idr-flowspec-redirect-ip-10"
   ipr="trust200902"
   obsoletes=""
   updates=""
@@ -24,7 +24,7 @@
   <front>
     <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect-to-IP Action</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-09"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-10"/>
 
     <author fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>HPE</organization>
@@ -71,7 +71,7 @@
       action for policy-based forwarding.  This mechanism can be difficult to
       use, particularly in networks without L3 VPN infrastructure.</t>
 
-      <t>This draft defines a new redirect-to-IP flow-spec action that provides
+      <t>This document defines a new redirect-to-IP flow-spec action that provides
       a simpler method of policy-based forwarding. The details of the action,
       including the IPv4 or IPv6 target address, are encoded in newly defined
       BGP extended communities.</t>
@@ -98,7 +98,7 @@
       destination is useful for DDoS mitigation, but it can be complex and
       cumbersome, particularly in networks without L3 VPN infrastructure.</t>
 
-      <t>This draft proposes a new redirect-to-IP flow-spec action that
+      <t>This document proposes a new redirect-to-IP flow-spec action that
       provides a method for policy-based forwarding to redirect or copy
       matching traffic toward a specific IP address.  This method of redirection
       and copying is simpler than the existing methods in 
@@ -186,7 +186,7 @@
 
 	<section title="Redirect-to-IP Extended Community Validation Procedure">
 	  <t>BGP speakers that support the extended communities defined in this
-	  draft MUST also, by default, apply additional validation rules when receiving
+	  document MUST also, by default, apply additional validation rules when receiving
 	  a flow-spec with these extended communities:</t>
 
 	  <t>If the flow-spec route has a null/empty AS_PATH, or an AS_PATH
@@ -204,6 +204,10 @@
 	    AS = X, and the resolving route of the "target-address" is a BGP route
 	    with a non-empty AS_PATH indicating origin AS = X, then the extended
 	    community is considered "valid".</li>
+	    <li>If the flow-spec route has a non-empty AS_PATH indicating origin
+	    AS = X, and the resolving route of the "target-address" is a BGP
+	    route with a non-empty AS_PATH indicating origin AS that is NOT X,
+	    then the extended community is considered "invalid".</li>
 	    <li>If the flow-spec route has a null/empty AS_PATH, or an AS_PATH
 	    with only local confederation elements, and the resolving route of the
 	    "target-address" is a BGP route with a null/empty AS_PATH or an
@@ -377,7 +381,7 @@
 	    redirection and copying.</dd>
 
 	    <!-- XXX JMH - discuss with authors -->
-	    <dt>SRv6 Redirect to indirection-id (<xref target="I-D.ietf0-idr-srv6-flowspec-path-redirect" section="2"/>):</dt>
+	    <dt>SRv6 Redirect to indirection-id (<xref target="I-D.chen-idr-srv6-flowspec-path-redirect" section="2"/>):</dt>
 	    <dd>In general, multiple operations supporting redirection or
 	    copying SHOULD NOT be present in the same BGP flowspec route.  When
 	    both redirect-to-IP and SRv6 redirect to indirection-id are both present
@@ -456,7 +460,7 @@
       Type value is 0x000c.  The Name shall be "Flow-spec Redirect-to-IPv6".
       The Reference shall be this document.</t>
 
-      <t>In a previous draft of this document, IANA had allocated an
+      <t>In a previous version of this document, IANA had allocated an
       extended community from the "BGP Transitive Extended Community Types"
       registry with Type Value 0x08 for "Flow spec redirect/mirror to IP
       next-hop".  IANA is requested to deprecate this registration.</t>
@@ -487,7 +491,7 @@
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7911.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7942.xml"/>
 	<xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-idr-flowspec-path-redirect.xml"/>
-	<xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf0-idr-srv6-flowspec-path-redirect.xml"/>
+	<xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.chen-idr-srv6-flowspec-path-redirect.xml"/>
       </references>
     </references>
 
