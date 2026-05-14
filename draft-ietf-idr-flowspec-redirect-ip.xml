@@ -13,7 +13,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-idr-flowspec-redirect-ip-10"
+  docName="draft-ietf-idr-flowspec-redirect-ip-11"
   ipr="trust200902"
   obsoletes=""
   updates=""
@@ -256,7 +256,7 @@
 	configuration. If the "target route" has one or more tunnel next-hops
 	then the appropriate encapsulations SHOULD be added to the
 	redirected/copied packets. If the "target address" is invalid or
-	unreachable then the extended community SHOULD be ignored.</t>
+	unreachable then the extended community MUST be ignored.</t>
 
 	<!-- XXX Adam notes the following section isn't supported in Nokia's
 	implementation and should be audited vs. actual support across the
@@ -412,7 +412,7 @@
         implementation <bcp14>SHOULD</bcp14> provide the ability to diagnose
         why a given route does or does not validate vs. the routing table.
         Implemenations <bcp14>MAY</bcp14> log such validation activity, but
-        <bcp14>SHOULD</bcp14> be prepared to rate-limit this logging based on
+        <bcp14>MUST</bcp14> be prepared to rate-limit this logging based on
         high rates of churn in the routing system.</li>
 
         <li>Target address resolution: redirect-to-IP extended communities
@@ -426,7 +426,7 @@
         when more than one such extended community is present.
         Implementations <bcp14>MAY</bcp14> provide logging facilities for the
         success or failure of such resolution procedures for flow-spec
-        routes, but <bcp14>SHOULD</bcp14> be prepared to rate-limit this
+        routes, but <bcp14>MUST</bcp14> be prepared to rate-limit this
         logging based on high rates of churn in that database.</li>
 
         <li>Conflicting redirect-to-IP extended communities: Operators are
