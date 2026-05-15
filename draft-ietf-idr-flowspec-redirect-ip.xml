@@ -24,7 +24,7 @@
   <front>
     <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect-to-IP Action</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-10"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-11"/>
 
     <author fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>HPE</organization>
@@ -268,7 +268,11 @@
 
 	<t>If the BGP speaker is not capable of redirecting and copying the
 	same packet as part of load-sharing it SHOULD ignore the extended
-	communities with C=0. If the BGP speaker is not capable of
+        communities with C=0.  The intent is that if traffic cannot be both
+        redirected and copied that there is precedence for copying for
+        operational visibility.</t>
+
+        <t>If the BGP speaker is not capable of
 	redirecting/copying a packet towards multiple "target addresses" it
 	SHOULD deterministically select one "target address" and ignore the
 	others.</t>
