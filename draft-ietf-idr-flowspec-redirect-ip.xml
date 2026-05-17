@@ -13,7 +13,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-idr-flowspec-redirect-ip-11"
+  docName="draft-ietf-idr-flowspec-redirect-ip-12"
   ipr="trust200902"
   obsoletes=""
   updates=""
@@ -24,7 +24,7 @@
   <front>
     <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect-to-IP Action</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-11"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-12"/>
 
     <author fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>HPE</organization>
@@ -98,7 +98,7 @@
       destination is useful for DDoS mitigation, but it can be complex and
       cumbersome, particularly in networks without L3 VPN infrastructure.</t>
 
-      <t>This document proposes a new redirect-to-IP flow-spec action that
+      <t>This document specifies a new redirect-to-IP flow-spec action that
       provides a method for policy-based forwarding to redirect or copy
       matching traffic toward a specific IP address.  This method of redirection
       and copying is simpler than the existing methods in 
@@ -128,7 +128,7 @@
       <xref target="RFC4360"/>, the IANA-assigned sub-type value 0x0c indicates
       that the Global Administrator and Local Administrator fields encode a
       flow-spec "redirect-to-IPv4" action. In the encoding of this action, the
-      4-octet Global Administrator field encodes the IPv4 address that is the
+      4-octet Global Administrator field encodes the IPv4 unicast address that is the
       redirection target address and the 2-octet local administrator field is
       formatted as shown in Figure 1.</t>
 
@@ -136,7 +136,7 @@
       <xref target="RFC5701"/>, the IANA-assigned type 0x000c indicates that the
       Global Administrator and Local Administrator fields encode a flow-spec
       "redirect-to-IPv6" action. In this encoding, the 16-octet Global
-      Administrator field contains the IPv6 address that is the redirection
+      Administrator field contains the IPv6 unicast address that is the redirection
       target address and the 2-octet local administrator field is again
       formatted as shown in Figure 1.</t>
 
@@ -415,7 +415,7 @@
         validation status based on the presence or absence of routes.  The
         implementation <bcp14>SHOULD</bcp14> provide the ability to diagnose
         why a given route does or does not validate vs. the routing table.
-        Implemenations <bcp14>MAY</bcp14> log such validation activity, but
+        Implementations <bcp14>MAY</bcp14> log such validation activity, but
         <bcp14>MUST</bcp14> be prepared to rate-limit this logging based on
         high rates of churn in the routing system.</li>
 
@@ -448,12 +448,12 @@
 
       <t>IANA has allocated an extended community from the "Transitive
       IPv4-Address-Specific Extended Community Sub-Types" registry.  The
-      Sub-Type value is 0x0c.  The Name shall be "Flow-spec Redirect-to-IPv4".
+      Sub-Type value is 0x0c.  The Name is "Flow-spec Redirect-to-IPv4".
       The Reference shall be this document.</t>
 
       <t>IANA has allocated an extended community from the "Transitive
       IPv6-Address-Specific Extended Community Types" registry.  The
-      Type value is 0x000c.  The Name shall be "Flow-spec Redirect-to-IPv6".
+      Type value is 0x000c.  The Name is "Flow-spec Redirect-to-IPv6".
       The Reference shall be this document.</t>
     </section>
 
