@@ -13,7 +13,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-idr-flowspec-redirect-ip-12"
+  docName="draft-ietf-idr-flowspec-redirect-ip-13"
   ipr="trust200902"
   obsoletes=""
   updates=""
@@ -24,7 +24,7 @@
   <front>
     <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect-to-IP Action</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-12"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-13"/>
 
     <author fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>HPE</organization>
@@ -153,7 +153,7 @@
       </artwork>
 
       <t>In the local administrator field the least-significant bit is defined
-      as the "C" (or copy) bit. When the "C" bit is set the redirection applies
+      as the "C" (or copy) bit. When the "C" bit is set to 1 the redirection applies
       to copies of the matching packets and not to the original traffic stream.</t>
 
       <t>All bits other than the "C" bit in the local administrator field MUST
@@ -168,8 +168,8 @@
 
         <t>The validation check described in <xref target="RFC8955"/> and
 	<xref target="RFC8956"/>, and
-        revised in <xref target="RFC9117"/>, SHOULD be
-        applied by default to received flow-spec routes with a "redirect-to-IP"
+        revised in <xref target="RFC9117"/>, MUST also, by default, be
+        applied to received flow-spec routes with a "redirect-to-IP"
         extended community, as it is to all types of flow-spec routes.
         When this check is applied, a flow-spec route with a Destination Prefix
         subcomponent that originated outside the local AS is considered valid
@@ -194,7 +194,7 @@
 	  "target-address" is a non-BGP route, then the extended community is
 	  considered "valid".</t>
 
-	  <t>When the best-match unicast route for the "target-address" is BGP, the
+	  <t>When the best-match unicast route for the "target-address" is a BGP route, the
 	  router must consider a "redirect-to-IPv4" or "redirect-to-IPv6"
 	  extended community to be invalid if the origin AS of the flow-spec
 	  route does not match the origin AS of the best-match unicast route for
@@ -347,18 +347,18 @@
 	    <dt>Traffic Rate in bytes (<xref target="RFC8955" section="7.1"/>):</dt>
 	    <dd>Redirected and copied traffic are subject to the traffic policing
 	    mechanisms resulting from the lookup vs. the next hop database.  This
-	    traffic filtering action is thus IGNORED for traffic that is
+	    traffic filtering action is thus ignored for traffic that is
 	    redirected or copied.</dd>
 
 	    <dt>Traffic Rate in packets (<xref target="RFC8955" section="7.2"/>):</dt>
 	    <dd>Redirected and copied traffic are subject to the traffic policing
 	    mechanisms resulting from the lookup vs. the next hop database.  This
-	    traffic filtering action is thus IGNORED for traffic that is
+	    traffic filtering action is thus ignored for traffic that is
 	    redirected or copied.</dd>
 
 	    <dt>Terminal action (<xref target="RFC8955" section="7.3"/>):</dt>
 	    <dd>Redirection of matching traffic is considered a terminating
-	    action and the non-terminal action (T == 1) is IGNORED.  Copying of
+	    action and the non-terminal action (T == 1) is ignored.  Copying of
 	    matching traffic is considered a non-terminating action and the
 	    terminal action bit's behavior is respected in implementations that
 	    support copying.</dd>
@@ -369,13 +369,13 @@
 	    <dt>Traffic marking (<xref target="RFC8955" section="7.5"/>):</dt>
 	    <dd>Redirected and copied traffic are subject to the traffic policing
 	    mechanisms resulting from the lookup vs. the next hop database.  This
-	    traffic filtering action is thus IGNORED for traffic that is
+	    traffic filtering action is thus ignored for traffic that is
 	    redirected or copied.</dd>
 
 	    <dt>SFC classifier (<xref target="RFC9015" section="7.4"/>):</dt>
 	    <dd>Redirected and copied traffic are subject to the traffic policing
 	    mechanisms resulting from the lookup vs. the next hop database.  This
-	    traffic filtering action is thus IGNORED for traffic that is
+	    traffic filtering action is thus ignored for traffic that is
 	    redirected or copied.</dd>
 	  </dl>
 
