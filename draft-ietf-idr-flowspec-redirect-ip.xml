@@ -13,7 +13,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-idr-flowspec-redirect-ip-13"
+  docName="draft-ietf-idr-flowspec-redirect-ip-14"
   ipr="trust200902"
   obsoletes=""
   updates=""
@@ -24,7 +24,7 @@
   <front>
     <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect-to-IP Action</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-13"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-14"/>
 
     <author fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>HPE</organization>
@@ -68,13 +68,14 @@
       the primary one for many network operators is the distribution of traffic
       filtering actions for distributed denial of service (DDoS) mitigation.
       The flow-spec standard, RFC 8955, defines a redirect-to-VRF
+      (Virtual Routing and Forwarding)
       action for policy-based forwarding.  This mechanism can be difficult to
-      use, particularly in networks without L3 VPN infrastructure.</t>
+      use, particularly in networks without Layer 3 VPN infrastructure.</t>
 
       <t>This document defines a new redirect-to-IP flow-spec action that provides
       a simpler method of policy-based forwarding. The details of the action,
       including the IPv4 or IPv6 target address, are encoded in newly defined
-      BGP extended communities.</t>
+      BGP extended communities [RFC4360].</t>
     </abstract>
 
   </front>
@@ -91,12 +92,12 @@
 
       <t>Every flow-spec route is a rule, consisting of a matching part encoded
       in the BGP Network Layer Reachability Information (NLRI) field, and an
-      action part encoded in one or more BGP extended communities.  Flow-spec
+      action part encoded in one or more <xref target="RFC4360">BGP extended communities</xref>.  Flow-spec
       defines filter actions such as discard and rate limit. It also defines a
-      redirect-to-VRF action for policy-based forwarding. Using the
+      redirect-to-VRF (Virtual Routing and Forwarding) action for policy-based forwarding. Using the
       redirect-to-VRF action for redirecting traffic towards an alternate
       destination is useful for DDoS mitigation, but it can be complex and
-      cumbersome, particularly in networks without L3 VPN infrastructure.</t>
+      cumbersome, particularly in networks without Layer 3 VPN infrastructure.</t>
 
       <t>This document specifies a new redirect-to-IP flow-spec action that
       provides a method for policy-based forwarding to redirect or copy
@@ -181,7 +182,7 @@
         <!-- XXX JMH - do implementations enforce this restriction on the redirect? -->
 	<t>If the flow-spec route has a non-empty AS_PATH and any AS_PATH
 	path segment is of the type AS_SET or AS_CONFED_SET, then the
-	extended community is considered "invalid".  Compare similarly to
+	extended community is considered "invalid".  This procedure is similar to that in
 	<xref target="RFC9774" section="4"/>.</t>
 
 	<section title="Redirect-to-IP Extended Community Validation Procedure">
@@ -190,7 +191,7 @@
 	  a flow-spec with these extended communities:</t>
 
 	  <t>If the flow-spec route has a null/empty AS_PATH, or an AS_PATH
-	  with only local confederation elements, and the resolving route of the
+	  with only local confederation elements <xref target="RFC5065"/>, and the resolving route of the
 	  "target-address" is a non-BGP route, then the extended community is
 	  considered "valid".</t>
 
@@ -341,7 +342,7 @@
 	  short-circuit other traffic filtering options for the redirected or
 	  copied traffic.  As a result, the expected behaviors when
 	  redirect-to-IP is implemented and the following other traffic
-	  filtering actions are carried with the flowspec route are:</t>
+	  filtering actions are carried out with the flowspec route are:</t>
 
 	  <dl newline="true">
 	    <dt>Traffic Rate in bytes (<xref target="RFC8955" section="7.1"/>):</dt>
@@ -358,7 +359,7 @@
 
 	    <dt>Terminal action (<xref target="RFC8955" section="7.3"/>):</dt>
 	    <dd>Redirection of matching traffic is considered a terminating
-	    action and the non-terminal action (T == 1) is ignored.  Copying of
+	    action and the non-terminal action (T = 1) is ignored.  Copying of
 	    matching traffic is considered a non-terminating action and the
 	    terminal action bit's behavior is respected in implementations that
 	    support copying.</dd>
@@ -405,7 +406,7 @@
       <name>Operational Considerations</name>
 
       <t>Implementations supporting the redirect-to-IP feature will redirect or
-      copy traffic to a target address based interactions with subsystems and
+      copy traffic to a target address based on interactions with subsystems and
       may do so in a dynamic manner.  These interactions <bcp14>SHOULD</bcp14>
       be made visible in management systems used by operators to ensure correct
       operations of this feature.  These interactions include:</t>
@@ -446,13 +447,15 @@
     <section>
       <name>IANA Considerations</name>
 
-      <t>IANA has allocated an extended community from the "Transitive
-      IPv4-Address-Specific Extended Community Sub-Types" registry.  The
+      <t>IANA has allocated an extended community from the
+      <xref target="IANA_bgp_extended_communities_trans_ipv4">"Transitive
+      IPv4-Address-Specific Extended Community Sub-Types" registry</xref>.  The
       Sub-Type value is 0x0c.  The Name is "Flow-spec Redirect-to-IPv4".
       The Reference shall be this document.</t>
 
-      <t>IANA has allocated an extended community from the "Transitive
-      IPv6-Address-Specific Extended Community Types" registry.  The
+      <t>IANA has allocated an extended community from the
+      <xref target="IANA_bgp_extended_communities_trans_ipv6">"Transitive
+      IPv6-Address-Specific Extended Community Types" registry</xref>.  The
       Type value is 0x000c.  The Name is "Flow-spec Redirect-to-IPv6".
       The Reference shall be this document.</t>
     </section>
@@ -467,6 +470,7 @@
 
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4360.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5065.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5701.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8955.xml"/>
@@ -474,6 +478,8 @@
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9015.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9117.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9774.xml"/>
+	<xi:include href="https://bib.ietf.org/public/rfc/bibxml8/reference.IANA.bgp-extended-communities_trans-ipv4.xml"/>
+	<xi:include href="https://bib.ietf.org/public/rfc/bibxml8/reference.IANA.bgp-extended-communities_trans-ipv6.xml"/>
       </references>
 
       <references>
@@ -539,8 +545,8 @@
 	    <ul>
 	      <li>Section 2 IPv4 Extended Community - Implemented.</li>
 	      <li>Section 2 IPv6 Extended Community - Not Implemented.</li>
-	      <li>Section 2 Redirect (C == 0) - Implemented.</li>
-	      <li>Section 2 Copy (C == 1) - Not Implemented.</li>
+	      <li>Section 2 Redirect (C = 0) - Implemented.</li>
+	      <li>Section 2 Copy (C = 1) - Not Implemented.</li>
 	      <li>Section 2.1 Validation - Not Implemented.</li>
 	      <li>Section 2.2 Longest prefix match - Implemented.</li>
 	      <li>Section 2.2 Best path ECMP - Implemented.</li>
@@ -576,8 +582,8 @@
 	    <ul>
 	      <li>Section 2 IPv4 Extended Community - Implemented.</li>
 	      <li>Section 2 IPv6 Extended Community - Implemented.</li>
-	      <li>Section 2 Redirect (C == 0) - Implemented.</li>
-	      <li>Section 2 Copy (C == 1) - Not Implemented.</li>
+	      <li>Section 2 Redirect (C = 0) - Implemented.</li>
+	      <li>Section 2 Copy (C = 1) - Not Implemented.</li>
 	      <li>Section 2.1 Validation - Implemented.</li>
 	      <li>Section 2.2 Longest prefix match - Implemented.</li>
 	      <li>Section 2.2 Best path ECMP - Implemented.</li>
@@ -614,8 +620,8 @@
 	    <ul>
 	      <li>Section 2 IPv4 Extended Community - Implemented.</li>
 	      <li>Section 2 IPv6 Extended Community - Not Implemented.</li>
-	      <li>Section 2 Redirect (C == 0) - Implemented.</li>
-	      <li>Section 2 Copy (C == 1) - Not Implemented.</li>
+	      <li>Section 2 Redirect (C = 0) - Implemented.</li>
+	      <li>Section 2 Copy (C = 1) - Not Implemented.</li>
 	      <li>Section 2.1 Validation - Not Implemented.</li>
 	      <li>Section 2.2 Longest prefix match - Implemented.</li>
 	      <li>Section 2.2 Best path ECMP - Implemented.</li>
@@ -651,8 +657,8 @@
             <ul>
               <li>Section 2 IPv4 Extended Community - Implemented.</li>
               <li>Section 2 IPv6 Extended Community - Implemented.</li>
-              <li>Section 2 Redirect (C == 0) - Implemented.</li>
-              <li>Section 2 Copy (C == 1) - Not Implemented.</li>
+              <li>Section 2 Redirect (C = 0) - Implemented.</li>
+              <li>Section 2 Copy (C = 1) - Not Implemented.</li>
               <li>Section 2.1 Validation - Not Implemented.</li>
               <li>Section 2.2 Longest prefix match - Implemented.</li>
               <li>Section 2.2 Best path ECMP - Implemented.</li>
