@@ -226,8 +226,10 @@
 	  </ul>
 
 	  <t>If any of the above checks determine that a "redirect-to-IP"
-	  extended community is invalid, the extended community SHOULD be
-	  ignored as if it was not present in the route.</t>
+	  extended community is invalid, the extended community MUST be
+	  ignored when these validation procedures are enabled 
+	  (<xref target="validation"/>) as if it was not present in the
+	  route.</t>
 	</section>
 
       </section>
@@ -390,6 +392,17 @@
       particularly a concern when the "redirect-to-IP" extended community is
       allowed to cross AS boundaries. The validation check described in
       <xref target="validation"/> significantly reduces this risk.</t>
+
+
+      <t>The C=1 (copy) feature introduces an additional threat: when C=1,
+      matching packets are forwarded normally to their original destination and
+      simultaneously copied to the target address. A system that originates a
+      flow-spec route with C=1 that passes the validation checks can cause
+      receivers to copy matching traffic to a destination outside the
+      receiver's control. Unlike C=0, where diverting the original flow may be
+      operationally visible, C=1 interception does not disrupt normal
+      forwarding and may be harder to detect. The validation procedure in
+      <xref target="validation"/> reduces this risk.</t>
     </section>
 
     <section>
