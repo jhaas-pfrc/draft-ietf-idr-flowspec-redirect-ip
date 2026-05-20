@@ -13,7 +13,7 @@
 <rfc
   xmlns:xi="http://www.w3.org/2001/XInclude"
   category="std"
-  docName="draft-ietf-idr-flowspec-redirect-ip-14"
+  docName="draft-ietf-idr-flowspec-redirect-ip-15"
   ipr="trust200902"
   obsoletes=""
   updates=""
@@ -24,7 +24,7 @@
   <front>
     <title abbrev="draft-ietf-idr-flowspec-redirect-ip">BGP Flow-Spec Redirect-to-IP Action</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-14"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-idr-flowspec-redirect-ip-15"/>
 
     <author fullname="Jeffrey Haas" initials="J." surname="Haas">
       <organization>HPE</organization>
@@ -179,7 +179,6 @@
         destination prefix, and it is also the neighbor AS of all unicast IP
         routes that are longer matches of the destination prefix.</t>
 
-        <!-- XXX JMH - do implementations enforce this restriction on the redirect? -->
 	<t>If the flow-spec route has a non-empty AS_PATH and any AS_PATH
 	path segment is of the type AS_SET or AS_CONFED_SET, then the
 	extended community is considered "invalid".  This procedure is similar to that in
@@ -259,9 +258,6 @@
 	redirected/copied packets. If the "target address" is invalid or
 	unreachable then the extended community MUST be ignored.</t>
 
-	<!-- XXX Adam notes the following section isn't supported in Nokia's
-	implementation and should be audited vs. actual support across the
-	vendors. -->
 	<t>If a BGP speaker receives a flow-spec route with multiple
 	"redirect-to-IP" extended communities and this route represents the one
 	and only best path, it SHOULD load-share the redirected/copied packets
@@ -278,9 +274,6 @@
 	SHOULD deterministically select one "target address" and ignore the
 	others.</t>
 
-	<!-- XXX Adam notes the following section isn't supported in Nokia's
-	implementation and should be audited vs. actual support across the
-	vendors. -->
 	<t>If a BGP speaker receives multiple flow-spec routes for the same
 	flow-spec NLRI and all of them are considered usable paths for the best route
 	according to the BGP speaker's multipath configuration and each one
@@ -293,9 +286,6 @@
 
 	<section>
 	  <name>Interactions with Redirect to VRF Extended Community</name>
-	  <!-- XXX Adam notes the following section isn't supported in Nokia's
-	  implementation and should be audited vs. actual support across the
-	  vendors. -->
 	  <t>If a BGP speaker receives a flow-spec route with the following:</t>
 	  <ul>
 	    <li>One or more "redirect-to-IP" extended communities and,</li>
