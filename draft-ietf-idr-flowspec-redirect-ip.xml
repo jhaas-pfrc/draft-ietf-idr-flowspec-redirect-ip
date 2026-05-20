@@ -292,7 +292,7 @@
             <li>One or more "redirect-to-VRF" 
 	    (<xref target="RFC8955" section="7.4" sectionFormat="comma"/>)
 	    extended communities and,</li>
-            <li>This route represents the "one and only" best path,</li>
+            <li>This route represents the one and only best path,</li>
 	  </ul>
 	  <t>then the "redirect-to-IP" actions described above should be
 	  applied in the context of the "target VRF" matching the "redirect-to-
