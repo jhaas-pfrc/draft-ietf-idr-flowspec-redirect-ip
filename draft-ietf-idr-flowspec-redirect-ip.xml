@@ -385,6 +385,10 @@
 
     <section>
       <name>Security Considerations</name>
+      <t>The security considerations discussed in
+      <xref target="RFC8955"/>, <xref target="RFC8956"/>, and
+      <xref target="RFC9117"/> also apply to this document.</t>
+
       <t>A system that originates a flow-spec route with a "redirect-to-IP"
       extended community can cause many receivers of the flow-spec route to
       send traffic to a single next-hop, overwhelming that next-hop and
