@@ -234,15 +234,13 @@
       <section>
 	<name>Redirecting Matching Flowspec Traffic</name>
 
+	<t>Implementations MAY redirect and/or copy traffic from one AFI into an
+	endpoint identified by a redirect-to-IP extended community for a
+	different AFI, when supported.</t>
+
 	<t>For scaling purposes, redirection and/or copying of traffic SHOULD,
 	when possible, make use of load-balancing techniques.  Such techniques
 	are described below.</t>
-
-	<t>Traffic that is to be redirected/copied for a "redirect-to-IP"
-	extended community SHOULD only be redirected or copied if the community type
-	matches the flow-spec AFI.  IPv4 traffic uses IPv4-address-specific
-	extended communities, and IPv6 traffic uses IPv6-address-specific
-	extended communities.</t>
 
 	<t>When a BGP speaker receives a flow-spec route with a "redirect-to-IP"
 	extended community and this route represents the one and only best path,
@@ -254,13 +252,11 @@
 	uses to resolve next-hop addresses and then forward the redirected/copied
 	packets based on the resulting route (the "target route").</t>
 
-	<t>If the "target
-	route" has multiple ECMP next-hops, the redirected/copied packets should
-	be load-shared across these next-hops according to the router's ECMP
-	configuration. If the "target route" has one or more tunnel next-hops
-	then the appropriate encapsulations SHOULD be added to the
-	redirected/copied packets. If the "target address" is invalid or
-	unreachable then the extended community MUST be ignored.</t>
+	<t>If the "target route" has multiple ECMP next-hops, the
+	redirected/copied packets should be load-shared across these next-hops
+	according to the router's ECMP configuration.  If the "target address"
+	is invalid or unreachable then the extended community MUST be
+	ignored.</t>
 
 	<t>If a BGP speaker receives a flow-spec route with multiple
 	"redirect-to-IP" extended communities and this route represents the one
